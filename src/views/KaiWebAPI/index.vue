@@ -1,6 +1,9 @@
 <script setup>
 // import { ref } from 'vue'
 
+import toTop from "@/UI/toTop.vue";
+toTop.scrollToTop =  true;
+
   const aa = `
     <div id="content" style="display:flex; justify-content: center; background-color: #282923; color:#c1cccc; font-size: 14px;">
     
@@ -377,13 +380,13 @@
           <a href="https://www.youtube.com/watch?v=f_qdCpua_G8&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=48" target="_blank">
           48.【8.模型資料驗證】ASP.NET Core Web API 入門教學(8_4) - 繼承抽象化驗證資料類別</a>
             把PUT及POST共同的部份，寫成抽象化類別，再去繼承
-            新增Abstracts\TodoListEditDtoAbstract.cs
+            新增Abstracts\\TodoListEditDtoAbstract.cs
             把TodoListPostDto 通通剪下，貼上
           <a href="https://www.youtube.com/watch?v=DQxGDFZn_6Y&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=49" target="_blank">
           49.【9.使用DI依賴注入功能】ASP.NET Core Web API 入門教學(9_1) - 基本DI依賴注入用法_GET</a>
             主要目的，可以把程式拆分出去
             controller主要寫控制邏輯，商業邏輯就要拆分出去
-            新增一個資料夾 Services\TodoListService
+            新增一個資料夾 Services\\TodoListService
           
             把原本在TodoController裡面Get的code，搬到TodoListService
             在programs.cs 加上
@@ -516,6 +519,8 @@
     </pre>
   </div>
   `;
+
+
 </script>
 
 <template>
@@ -524,7 +529,7 @@
     <!-- {{ aa }} -->
     <div v-html="aa"></div>
   </div>
-  
+  <toTop></toTop>
 </template>
 
 <style scoped lang="scss">

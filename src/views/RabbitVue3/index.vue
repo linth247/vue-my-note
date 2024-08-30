@@ -1,4 +1,7 @@
 <script setup>
+import toTop from "@/UI/toTop.vue";
+toTop.scrollToTop =  true;
+
 const content = `
   <div id="Vue3-rabbit" style="display:flex; justify-content: center; background-color: #282923; color:#c1cccc; font-size: 14px;">
     <pre>
@@ -1089,6 +1092,7 @@ const content = `
 <template>
   <div>我是RabbitVue3頁面</div>
   <div v-html="content"></div>
+  <toTop></toTop>
 </template>
 
 <style scoped lang="scss">
