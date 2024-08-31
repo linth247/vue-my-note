@@ -24,7 +24,7 @@
       <!-- <h1 class="logo">
         <RouterLink to="/">小兔鮮</RouterLink>
       </h1> -->
-      <ul class="app-header-nav">
+      <ul class="app-header-nav" style="list-style: none;">
         <li class="home">
           <RouterLink to="/">首頁</RouterLink>
         </li>
@@ -34,6 +34,7 @@
         <li> <RouterLink to="/">WebAPI</RouterLink> </li>
         <li> <RouterLink to="/vue3">Vue3</RouterLink> </li>
         <li> <RouterLink to="/download">下載</RouterLink> </li>
+        <li> <RouterLink to="/others">其他</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>

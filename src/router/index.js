@@ -4,6 +4,7 @@ import Layout from '@/views/Layout/index.vue'
 import KaiWebAPI from '@/views/KaiWebAPI/index.vue'
 import RabbitVue3 from '@/views/RabbitVue3/index.vue'
 import Download from '@/views/Download/index.vue'
+import Others from '@/views/Others/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,10 @@ const router = createRouter({
         {
           path:'/download',
           component: Download
+        },
+        {
+          path:'/others',
+          component: Others
         },
       ]
     },
