@@ -9,8 +9,13 @@
   <!-- <div v-html="content"></div> -->
   <div id="Vite_to_github" class="content">
     <div>1.Vue3 CRUD + bootstrap 
-      <a href="https://www.youtube.com/watch?v=PrKh6GemOyg">
+      <a href="https://www.youtube.com/watch?v=PrKh6GemOyg" target="_blank">
         https://www.youtube.com/watch?v=PrKh6GemOyg  
+      </a> 
+    </div>
+    <div>2.Vue3 學習筆記
+      <a href="https://hackmd.io/@Lin-Jay/S1xju_nKO" target="_blank">
+        https://hackmd.io/@Lin-Jay/S1xju_nKO 
       </a> 
     </div>
   </div>

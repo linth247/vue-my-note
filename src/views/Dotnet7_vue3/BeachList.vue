@@ -51,7 +51,8 @@ const temp = `
                         <h5 class="card-title">{{ item.beachName }}</h5>
                         <p class="card-text">Location - {{ item.place }}</p>
                         <router-link class="btn btn-primary" :to="'/edit/$-{item.id}'">Edit</router-link> 
-                        <button type="button" @click="$event => openDeleteModal(item.id)" class="btn btn-danger">Delete</button>
+                        // <button type="button" @click="$event => openDeleteModal(item.id)" class="btn btn-danger">Delete</button>
+                        <button type="button" @click="openDeleteModal(item.id)" class="btn btn-danger">Delete</button>
                     </div>
                     </div>
                 </div>
