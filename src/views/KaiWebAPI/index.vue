@@ -4,7 +4,7 @@
 import toTop from "@/UI/toTop.vue";
 toTop.scrollToTop =  true;
 
-  const aa = `
+  const content = `
     <div id="content" style="display:flex; justify-content: center; background-color: #282923; color:#c1cccc; font-size: 14px;">
     
     <pre>
@@ -527,7 +527,7 @@ toTop.scrollToTop =  true;
   <div>我是WebAPI頁面</div>
   <div>
     <!-- {{ aa }} -->
-    <div v-html="aa"></div>
+    <div v-html="content"></div>
   </div>
   <toTop></toTop>
 </template>

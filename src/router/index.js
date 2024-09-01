@@ -5,6 +5,13 @@ import KaiWebAPI from '@/views/KaiWebAPI/index.vue'
 import RabbitVue3 from '@/views/RabbitVue3/index.vue'
 import Download from '@/views/Download/index.vue'
 import Others from '@/views/Others/index.vue'
+import Dotnet7_vue3 from '@/views/Dotnet7_vue3/index.vue'
+import _Beach_Info from '@/views/Dotnet7_vue3/_Beach_Info.vue'
+import AddBeach from '@/views/Dotnet7_vue3/AddBeach.vue'
+import BeachList from '@/views/Dotnet7_vue3/BeachList.vue'
+import EditBeach from '@/views/Dotnet7_vue3/EditBeach.vue'
+import router_Beach from '@/views/Dotnet7_vue3/router_Beach.vue'
+import ConfirmDeletePopup from '@/views/Dotnet7_vue3/ConfirmDeletePopup.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +35,41 @@ const router = createRouter({
         {
           path:'/others',
           component: Others
+        },
+        {
+          path:'/dotnet7_vue3',
+          component: Dotnet7_vue3,
+          children:[
+            {
+              path:'',
+              component: _Beach_Info,
+            },
+            {
+              path:'/_beach_info',
+              component: _Beach_Info,
+            },
+            {
+              path:'/addbeach',
+              component: AddBeach
+            },
+            {
+              path:'/beachList',
+              component: BeachList
+            },
+            {
+              path:'/editbeach',
+              component: EditBeach
+            },
+            {
+              path:'/routerbeach',
+              component: router_Beach
+            },
+            {
+              path:'/confirmDeletePopup',
+              component: ConfirmDeletePopup
+            }
+
+          ]
         },
       ]
     },

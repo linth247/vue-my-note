@@ -25,9 +25,9 @@
         <RouterLink to="/">小兔鮮</RouterLink>
       </h1> -->
       <ul class="app-header-nav" style="list-style: none;">
-        <li class="home">
+        <!-- <li class="home">
           <RouterLink to="/">首頁</RouterLink>
-        </li>
+        </li> -->
         <!-- <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{item.name}}</RouterLink> 
         </li> -->
@@ -35,6 +35,7 @@
         <li> <RouterLink to="/vue3">Vue3</RouterLink> </li>
         <li> <RouterLink to="/download">下載</RouterLink> </li>
         <li> <RouterLink to="/others">其他</RouterLink> </li>
+        <li> <RouterLink to="/dotnet7_vue3">Dotnet7_vue3</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>

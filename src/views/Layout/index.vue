@@ -18,6 +18,7 @@ import LayoutHeader from './components/LayoutHeader.vue'
   <!-- <LayoutFixed/> -->
   <!-- <LayoutNav /> -->
   <LayoutHeader />
+  <hr/>
   <!-- 添加key 破壞複用機制 強制銷毀重建 -->
   <!-- <RouterView :key="$route.fullPath"/> -->
    <!-- 二級路由出口 -->
