@@ -27,7 +27,7 @@ const temp = `
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
 
-    script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"> /script>
 
     ----WebAPI
     安裝Visual Studio 2022
@@ -80,7 +80,7 @@ const temp = `
               }
           }
 
-        在Data資料夾底下，新增檔案MyWorldDbContext.cs
+        在Data資料夾底下, 新增檔案MyWorldDbContext.cs
         using System;
         using System.Collections.Generic;
         using System.Linq;
@@ -92,10 +92,11 @@ const temp = `
         {
             public class MyWorldDbContext:DbContext
             {
-                public MyWorldDbContext(DbContextOptions<MyWorldDbContext> options):base(options)
+                public MyWorldDbContext(DbContextOptions MyWorldDbContext> options):base(options)
                 {
+
                 }
-                public DbSet<Beach> Beach{get; set;}
+                public DbSet Beach> Beach{get; set;}
             }
         }
     
@@ -118,7 +119,7 @@ const temp = `
     }
 
     program.cs
-    builder.Services.AddDbContext<MyWorldDbContext>(options => {
+    builder.Services.AddDbContext MyWorldDbContext>(options => {
       options.UseSqlServer(builder.Configuration.GetConnectionString("MyWorldDbConnection"));
     });   
     
@@ -142,7 +143,7 @@ const temp = `
             // public Beach(MyWorldDbCotext myWorldDbContext)
 
             [HttpGet]
-            public async Task<IActionResult> Get()
+            public async Task IActionResult> Get()
             {
                 //var users = context.Users.ToList();
                 var beaches = await context.Beach.ToListAsync();
@@ -151,7 +152,7 @@ const temp = `
             }
 
             [HttpPost]
-            public async Task<IActionResult> Post(Beach newBeach)
+            public async Task IActionResult> Post(Beach newBeach)
             {
                 context.Beach.Add(newBeach);
                 await context.SaveChangesAsync();
@@ -159,7 +160,7 @@ const temp = `
             }
 
             [HttpGet("{id:int}")]
-            public async Task<IActionResult> Get(int id)
+            public async Task IActionResult> Get(int id)
             {
                 //var users = context.Users.ToList();
                 // var beachById = await context.Beach.FindAsync(id);
@@ -168,7 +169,7 @@ const temp = `
             }
 
             [HttpPut]
-            public async Task<IActionResult> Put(Beach beachUpdate)
+            public async Task IActionResult> Put(Beach beachUpdate)
             {
                 context.Beach.Update(beachUpdate);
                 await context.SaveChangesAsync();
@@ -176,7 +177,7 @@ const temp = `
             }
 
             [HttpDelete("{id:int}")]
-            public async Task<IActionResult> Delete(int id){
+            public async Task IActionResult> Delete(int id){
                 var beachToDelete = await context.Beach.FindAsync(id);
                 if(beachToDelete == null)
                 {
@@ -189,7 +190,7 @@ const temp = `
           }
       }
 
-    <form @submit.prevent="addBeach">
+    form @submit.prevent="addBeach">
 
     https://picsum.photos/id/237/300/200
 
