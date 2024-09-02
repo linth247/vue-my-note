@@ -36,6 +36,8 @@
         <li> <RouterLink to="/download">下載</RouterLink> </li>
         <li> <RouterLink to="/others">其他</RouterLink> </li>
         <li> <RouterLink to="/dotnet7_vue3">Dotnet7_vue3</RouterLink> </li>
+        <li> <RouterLink to="/vscode_function">VS Code小功能</RouterLink> </li>
+        <li> <RouterLink to="/video">Video</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>
@@ -78,8 +80,9 @@
   
     li {
       margin-right: 40px;
-      width: 38px;
+      // width: 60px;
       text-align: center;
+      // background-color:orange;
   
       a {
         font-size: 16px;
@@ -90,12 +93,19 @@
         &:hover {
           color: $xtxColor;
           border-bottom: 1px solid $xtxColor;
+          background-color: white;
+          color: black;
+          background-color:orange;
+          border-radius: 0.2rem 0.2rem 0 0;
+          padding: 0 10px;
         }
       }
   
       .active {
         color: $xtxColor;
         border-bottom: 1px solid $xtxColor;
+        // color: black;
+        // background-color:orange;
       }
     }
   }

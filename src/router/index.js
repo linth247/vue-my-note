@@ -5,6 +5,7 @@ import KaiWebAPI from '@/views/KaiWebAPI/index.vue'
 import RabbitVue3 from '@/views/RabbitVue3/index.vue'
 import Download from '@/views/Download/index.vue'
 import Others from '@/views/Others/index.vue'
+import _4_deployVite from '@/views/Others/components/_4_deployVite.vue'
 import Dotnet7_vue3 from '@/views/Dotnet7_vue3/index.vue'
 import _Beach_Info from '@/views/Dotnet7_vue3/_Beach_Info.vue'
 import AddBeach from '@/views/Dotnet7_vue3/AddBeach.vue'
@@ -12,6 +13,8 @@ import BeachList from '@/views/Dotnet7_vue3/BeachList.vue'
 import EditBeach from '@/views/Dotnet7_vue3/EditBeach.vue'
 import router_Beach from '@/views/Dotnet7_vue3/router_Beach.vue'
 import ConfirmDeletePopup from '@/views/Dotnet7_vue3/ConfirmDeletePopup.vue'
+import VSCode_Function from '@/views/VSCode_Function/index.vue'
+import Video from '@/views/Video/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +37,13 @@ const router = createRouter({
         },
         {
           path:'/others',
-          component: Others
+          component: Others,
+          children:[
+            {
+              path:'/_4_deployVite',
+              component: _4_deployVite
+            }
+          ]
         },
         {
           path:'/dotnet7_vue3',
@@ -70,6 +79,14 @@ const router = createRouter({
             }
 
           ]
+        },        
+        {
+          path:'/vscode_function',
+          component: VSCode_Function
+        },
+        {
+          path:'/video',
+          component: Video
         },
       ]
     },

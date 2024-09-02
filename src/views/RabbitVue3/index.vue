@@ -1047,12 +1047,247 @@ const content = `
         //================== Day7-04-會員中心-我的訂單-tab切換實現
         //================== Day7-05-會員中心-我的訂單-分頁邏輯實現
         //================== Day7-06-會員中心-細節優化
+        
         //================== Day7-07-拓展課-SKU組件-功能拆解
         //================== Day7-08-拓展課-SKU組件-點擊規格更新選中狀態
         //================== Day7-09-拓展課-SKU組件-獲取有效路徑字典
         //================== Day7-10-拓展課-SKU組件-初始化時更新禁用狀態
         //================== Day7-11-拓展課-SKU組件-點擊時組合更新禁用狀態
         //================== Day7-12-拓展課-SKU組件-產出有效的SKU對象信息
+          //================== Day7-07-拓展課-SKU組件-功能拆解
+              1.初始化規格渲染
+              2.點擊規格更新選中狀態
+              3.點擊規格更新禁用狀態
+              4.產出選擇的SKU數據
+
+                //src/SKU/Sku.vue
+                  script setup>
+                    import { onMounted, ref } from 'vue'
+                    import axios from 'axios'
+                    // 商品數據
+                    const goods = ref({})
+                    const getGoods = async () => {
+                      // 1135076  初始化就有無庫存的規格
+                      // 1369155859933827074 更新之後有無庫存項（藍色-20cm-中國）
+                      const res = await axios.get('http://pcapi-xiaotuxian-front-devtest.itheima.net/goods?id=1369155859933827074')
+                      goods.value = res.data.result
+                    }
+                    onMounted(() => getGoods())
+
+                  /script>
+                  template>
+                      div class="goods-sku">
+                        dl v-for="item in goods.specs" :key="item.id">
+                          dt>{{ item.name }}</dt>
+                          dd>
+                            template v-for="val in item.values" :key="val.name">
+                              !-- 圖片類型規格 -->
+                              img v-if="val.picture" :src="val.picture" :title="val.name">
+                              !-- 文字類型規格 -->
+                              span v-else>{{ val.name }}</span>
+                            /template>
+                          /dd>
+                        /dl>
+                      /div>
+                    /template>
+
+                    style scoped lang="scss">
+                    @mixin sku-state-mixin {
+                      border: 1px solid #e4e4e4;
+                      margin-right: 10px;
+                      cursor: pointer;
+
+                      &.selected {
+                        border-color: #27ba9b;
+                      }
+
+                      &.disabled {
+                        opacity: 0.6;
+                        border-style: dashed;
+                        cursor: not-allowed;
+                      }
+                    }
+
+                    .goods-sku {
+                      padding-left: 10px;
+                      padding-top: 20px;
+
+                      dl {
+                        display: flex;
+                        padding-bottom: 20px;
+                        align-items: center;
+
+                        dt {
+                          width: 50px;
+                          color: #999;
+                        }
+
+                        dd {
+                          flex: 1;
+                          color: #666;
+
+                          >img {
+                            width: 50px;
+                            height: 50px;
+                            margin-bottom: 4px;
+                            @include sku-state-mixin;
+                          }
+
+                          >span {
+                            display: inline-block;
+                            height: 30px;
+                            line-height: 28px;
+                            padding: 0 20px;
+                            margin-bottom: 4px;
+                            @include sku-state-mixin;
+                          }
+                        }
+                      }
+                    }
+                  /style>
+
+          //================== Day7-08-拓展課-SKU組件-點擊規格更新選中狀態
+
+## 2. 選中與取消選中實現
+-> 基本思路：
+-> 1. 每一個規格按钮都擁有自己的选選中狀態數據-selected，true為選中，false為取消選中
+-> 2. 配合動態class，把選中狀態selected作為判斷條件，true讓active類名顯示，false讓active類名不顯示
+-> 3. 點擊的是未選中，把同一個規格的其他取消選中，當前點擊項選中；點擊的是已選中，直接取消
+
+
+          script setup>
+            import { onMounted, ref } from 'vue'
+            import axios from 'axios'
+            // 商品数据
+            const goods = ref({})
+            const getGoods = async () => {
+              // 1135076  初始化就有无库存的规格
+              // 1369155859933827074 更新之后有无库存项（蓝色-20cm-中国）
+              const res = await axios.get('http://pcapi-xiaotuxian-front-devtest.itheima.net/goods?id=1369155859933827074')
+              goods.value = res.data.result
+            }
+            onMounted(() => getGoods())
+
+            // 選中與取消選中實現
+            const changeSelectedStatus = (item, val) => {
+              // 點擊的是未選中，把同一個規格的其他取消選中，當前點擊項選中，點擊的是已選中，直接取消
+              // item: 同一排的對象
+              // val: 當前點擊項
+              if (val.selected) {
+                val.selected = false // 取消激活
+              } else {
+                // 同排取消
+                item.values.forEach(valItem => valItem.selected = false)
+                // 當前選中
+                val.selected = true
+              }
+            }
+
+            /script>
+
+            template>
+              div class="goods-sku">
+                dl v-for="item in goods.specs" :key="item.id">
+                  dt>{{ item.name }}</dt>
+                  dd>
+                    template v-for="val in item.values" :key="val.name">
+                      !-- 圖片類型規格 -->
+                      img :class="{selected: val.selected}" @click="changeSelectedStatus(item, val)" 
+                        v-if="val.picture" :src="val.picture" :title="val.name">
+                      !-- 文字類型規格 -->
+                      span :class="{selected: val.selected}" 
+                        v-else @click="changeSelectedStatus(item, val)">{{ val.name }}</span>
+                    /template>
+                  /dd>
+                /dl>
+              /div>
+            /template>
+
+            style scoped lang="scss">
+            @mixin sku-state-mixin {
+              border: 1px solid #e4e4e4;
+              margin-right: 10px;
+              cursor: pointer;
+
+              &.selected {
+                border-color: #27ba9b;
+              }
+
+              &.disabled {
+                opacity: 0.6;
+                border-style: dashed;
+                cursor: not-allowed;
+              }
+            }
+
+            .goods-sku {
+              padding-left: 10px;
+              padding-top: 20px;
+
+              dl {
+                display: flex;
+                padding-bottom: 20px;
+                align-items: center;
+
+                dt {
+                  width: 50px;
+                  color: #999;
+                }
+
+                dd {
+                  flex: 1;
+                  color: #666;
+
+                  >img {
+                    width: 50px;
+                    height: 50px;
+                    margin-bottom: 4px;
+                    @include sku-state-mixin;
+                  }
+
+                  >span {
+                    display: inline-block;
+                    height: 30px;
+                    line-height: 28px;
+                    padding: 0 20px;
+                    margin-bottom: 4px;
+                    @include sku-state-mixin;
+                  }
+                }
+              }
+            }
+            </style>
+          //================== Day7-09-拓展課-SKU組件-獲取有效路徑字典
+            點擊規格更新禁用動態 - 生成有效路徑字典(1)
+            核心原理：當前的規格SKU, 或者組合起來的規格SKU，在Sku數組中，對應項的
+            庫存為零時，當前規保會被禁用，生成路徑字典是為了協助和簡化這個匹配過程
+
+            生成有效路徑字典(2)
+              實現步驟：
+              1.根據庫存字段，得到有效的SKU數組
+              2.根據有效的SKU數組，使用powerSet算法，得到所有子集
+              3.根據子集生成路徑字典對象
+
+          //================== Day7-10-拓展課-SKU組件-初始化時更新禁用狀態
+            點擊規格更新禁用狀態 - 初始化規格禁用
+              思路：遍歷每一個規格對象，使用name用段作為key，去路徑字典pathMap中，
+              做匹配，匹配不上則禁用
+
+              怎麼做到顯示上的禁用呢？
+              1.通過增加disabled字段，disabled為false，匹配不上路徑字段，disabled為true
+              2.配合動態類名控制禁用類名
+
+
+          //================== Day7-11-拓展課-SKU組件-點擊時組合更新禁用狀態
+            點擊規格更新禁用狀態 - 點擊時組合禁用更新
+              思路：(點擊規格時)
+              1.按照順序得到規格選中項的數組 ['藍色', '20cm', undefined]
+              2.遍歷每一個規格
+                2.1 把name字段的值，填充到對應的位置
+                2.2 過濾掉undefined項，使用join方法, 形成一個有效的key
+                2.3 使用key去pathMap中進行匹配, 匹配不上, 則當前項禁用    
+
+          //================== Day7-12-拓展課-SKU組件-產出有效的SKU對象信息
 
 
     </pre>
