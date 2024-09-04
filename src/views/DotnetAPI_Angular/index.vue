@@ -291,8 +291,369 @@ toTop.scrollToTop =  true;
             settings -> brackets -> always
 
       24.Adding CORS support in the API
+        在API/Program.cs
+        builder.Service.AddCors();
+        app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().
+            WithOrigins("http://localhost:4200", "https://localhost:4200")
+          )
             
+      
 
+      第4節 Authentication basics
+      29.Introduction
+        Learning Goals
+        Implement basic authentication in our app and have an understanding of :
+        1.How to store passwords in the Database
+        2.Using inheritance in C# - DRY
+        3.Using the C# debugger
+        4.Using Data Transfer Objects(DTOs)
+        5.Validation
+        6.JSON Web Tokens(JWTs)
+        7.Using services in C#
+        8.Middleware
+        9.Extension methods - DRY
+
+        Where do I start?
+        Requirements
+        Users should be able to log in
+        Users should be able to register
+        Users should be able to view other users
+        Users should be able to privately message other users
+
+      30.Safe storage of passwords
+        Option1 - Storing in clear text
+        Option2 - Hasing the password
+        Option3 - Hashing and salting the password
+
+        FAQs
+        Why don't you use ASP.NET Identity?
+        Why are you storing the Password Salt in the DB? Isn't this less secure?
+        Don't worry! Later no we will refactor to the wildly used and "battle 
+        hardened" ASP.NET Core identity.
+        
+      31.Updating the user entity
+          AppUser.cs
+          --------------------------------------------------------
+            public class AppUser
+            {
+              public int Id { get; set; }
+              public requried string UserName { get; set; }
+              public required byte[] PasswordHas { get; set; }
+              public requried byte[] PasswordSalt { get; set; }
+            }
+          
+          API> dotnet ef migrations add UserEntityUpdated
+             > dotnet ef database update (更新資料庫欄位)
+      
+      32.Creating a base API controller
+        在controllers => 右鍵 => new C# > BaseApiController.cs
+            建立BaseApi 可以少寫code
+        
+            namespace API.Controllers;
+
+            [ApiController]
+            [Route("api/[controller]")]
+            public class BaseApiController : ControllerBase
+            {
+            }
+
+            AppUser.cs
+            就可以改繼承, 底下就可以去掉 
+            //[ApiController]
+            //[Route("api/[controller]")]
+            public class UsersController(DataContext context) : BaseApiController
+            {
+            }
+
+            在postman import : StudentAssets/DatingApp.postman_collection.json
+
+      33.Creating an Account Controller with a register endpoint
+            new一個新的controller 
+            Account.cs
+             --------------------------------------------------------
+            namespace API.Controllers;
+            
+             public class AccountController(DataContext context) : BaseApiController
+             {
+                [HttpPost("register")] // account/register
+                public async Task<ActionResult<AppUser>> Register(string username, string password)
+                {
+                  using var hmac = new HMACSHA512(); // using 一旦這個類超出了作用域，它不再被使用了，dispose就會被調用
+
+                  var user = new AppUser
+                  {
+                    UserName = username,
+                    PasswordHash = hmac.ComputeHash(Ecoding.UTF8.GetBytes(password)),
+                    PasswordSalt = hmac.key
+                  };
+
+                  contexxt.Users.Add(user);
+                  await context.SaveChangeAsync();
+                }
+             }
+
+        // dotnet watch         
+        // 使用POSTMAN 測試
+      
+      34. Using DTOs
+        建立新資料夾 DTOs
+        RegisterDto.cs
+        //---------------------          
+        public class RegisterDto
+        {
+          [Required]
+          [MaxLength(100)]
+          public required string Username { get; set; }
+
+          [Required]
+          public required string Password { get; set; }
+        }
+
+        AppUser.cs
+        //---------------------  
+          public class AccountController(DataContext context) : BaseApiController
+          {
+            [HttpPost("register")] // account/register
+            public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+            {
+              if(await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+
+              using var hmac = new HMACSHA512(); // using 一旦這個類超出了作用域，它不再被使用了，dispose就會被調用
+
+              var user = new AppUser
+              {
+                UserName = registerDto.Username.ToLower(),
+                PasswordHash = hmac.ComputeHash(Ecoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.key
+              };
+
+              contexxt.Users.Add(user);
+              await context.SaveChangeAsync();
+            }
+          }
+          
+          private async Task<bool> UserExists(string username)
+          {
+            return await context.Users.AnyAsync(x => x.UserName.ToLower() == username); // Bob != bob
+          }
+
+          // dotnet watch         
+          // 使用POSTMAN 測試
+      
+
+      35.Using the debugger (產生debug檔)
+        => 左邊選項 有bug的按鈕 => create a launch.json file
+          (檔案會產生在 .vscode底下)
+
+          "version": "0.2.0",
+          "configurations": [
+            {
+              "name": "C#: API Debug",
+              "type": "dotnet",
+              "request": "launch",
+              "webRoot": "$-{workspaceFolder}/API.csproj"
+            },
+            {
+              "name": ".NET Core Attach",
+              "type": "coreclr",      
+              "request": "attach"       
+            }
+          ]
+
+        
+      36.Adding a login endpoint
+        客戶端不會與API服務器保持對話
+        在API服務器返回的內容和客戶端，擁有的內容之間，沒有狀態記憶
+        它是無狀態的
+        API的任務是，接收請求，執行請求所需的任何邏輯，並返回響應
+
+        建立LoginDtos.cs
+        namespace API.DTOs
+        public class LoginDto
+        {
+            public required string Username { get; set; }
+            public required string Password { get; set; }
+        }
+
+        在Account.cs
+        新增
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        {
+          var user = await context.Users.SingleorDefaultAsync(
+            x => x.UserName == loginDto.Username.ToLower());
+
+          if(user == null) return Unauthorized("Invalid username");
+
+          using var hmac = new HMACSHA512(user.PasswordSalt);
+
+          var computedHash = hmac.ComputeHash(Encoding.UTF8.GetByes(loginDto.Password));
+
+          for(int i = 0; i < computedHash.Length; i++)
+          {
+            if(computedHash[i] != user.PasswordHash[i])
+             return Unauthorized("Invalid password");
+          }
+
+          return user;
+        }
+        
+        // 使用postnam 驗證 Login as bob, 輸入正確"username"="jim",
+            "password"="password" 返回200 ok
+      
+
+      37.JSON web tokens(JWT)
+        TOKEN AUTHENTICATION
+        Industry Standard for tokens(RFC 7519)
+        Self-contained and can contain:
+        .Credentials
+        .Claims
+        .Other information
+
+        JWT Structure => Header, Payload, Verify Siginature
+
+        Benefits of JWT
+        No session to manage - JWTs are self contained tokens
+        Portable - A single token can be used with multiple backedns
+        No Cookies required - mobile friendly
+        Performance - Once a token is issued, there is no need to make a database
+          request to verify a users authentication
+
+      38.Adding a token service
+        建立一個新資料夾 API/Interfaces
+        新增ITokenService.cs 的interface
+        public interface ITokenService
+        {
+          string CreateToken(AppUser user);
+        }
+
+        建立一個新資料夾 API/Services
+        新增TokenService.cs 的class
+        public class TokenService : ITokenService
+        {
+          public string CreateToken(AppUser user)
+          {
+            throw new NotImplementedException();
+          }
+        }
+
+        Program.cs
+        //------------------------
+        在builder.Services.AddCors(); 底下
+        builder.Services.AddScoped<ITokenService, ITokenService>();
+        
+      39.Adding the create token logic
+        Inject
+        在TokenService.cs
+        public class TokenService(IConfiguration config) : ITokenService
+        {
+          public string CreateToken(AppUser user)
+          {
+            var tokenKey = config["TokenKey"] ?? throw new Exception
+            ("Cannot access tokenKey from appsettings");
+            if(tokenKey.Length < 64) throw new Exception
+            ("Your tokenKey needs to be longer")
+            //SymmetricSecuritEkey 可以加密及解密
+            var key = new SymmetricSecuritKey(Ecoding.UTF8.GetBytes(tokenkey));
+
+            var claims = new List<Claim>  // 聲明
+            {
+              new Claim(ClaimTypes.NameIdentifier, user.UserName)
+            };
+            
+            // 用什麼算法來加密這個特定的密鑰
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            
+            // 描述我們要返回的令牌
+            var tokenDescriptor = new SecuritDescriptor
+            {
+              Subject = new ClaimsIdentity(claims),
+              Expires = DateTime.UtcNow.AddDays(7), // 到期時間
+              SigningCredentials = creds
+            };
+
+            //令牌處理程序，保存為新的JWT安裝令牌處理程序
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var toekn = tokenHandler.CreateToken(tokenDescriptor); 
+            // 創建令牌，傳入令牌描述符，包括我們的聲明
+
+            return tokenHandler.WriteToken(toekn); // 寫令牌並分發令牌
+          }
+        }
+
+        安裝
+        ctrl + shift + p => nuget: open Nuget Gallery
+        打上System.identityModel.Tokens.Jwt
+        安裝 在api.csproj 
+
+        在密碼學中，有兩種密鑰，有一個對稱密鑰，用於加密數據的密鑰，與用於
+        解密數據的密鑰相同。
+        另一種密鑰，是非對稱的，當你的服務器需要加密的東西，而客戶端還需要
+        解密的東西。
+          
+      40.Creating a User DTO and returning the token
+        好了，現在我們有了token邏輯，這樣我們就可以在用戶登入或注冊時，
+        返回這個token。
+
+        在token服務內部，我們有一個配方entry(入口)，需要去配置
+        在setting.Development.json
+        加上"TokenKey":"Super secret unguessable keyx3", // (at least 64 characters)
+
+        回到AccountController.cs
+        我們還需要新增一個DTO
+        DTOs/UserDto.cs
+        //------------------
+        public class UserDto
+        {
+          public required string UserName { get; set; }
+          public required string Token { get; set; }
+        }
+
+
+        回到AccountController.cs
+        public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
+        {
+          ...
+          //return user;
+          return new UserDto
+          {
+            Username = user.UserName,
+            Token = tokenService.CreateToken(user) // 上面的回傳要改成UserDto
+          }
+        }
+
+
+        // 相同的，在Login那段，也要改成回傳return UserDto
+
+
+      41.Adding the authentication middleware
+        
+      42.Adding extension methods
+      43.Secton 4 Summary
+
+      第5節：Client login and register       
+      44.Introduction
+      45.Create a nav bar
+      46.Introduction to Angular template forms
+      47.Introduction to Angular services
+      48.Injecting sercies into components
+      49.Using conditionals to show and remove content
+      40.
+
+      第6節：Routing in Angular
+      第7節：Error handling
+      第8節：Extending the API
+      第9節：Building the user interface
+      第10節：Updating resources
+      第11節：Adding photo upload functionality
+      第12節：Reactive forms
+      第13節：Paging, sorting and filtering
+      第14節：Adding the likes feature
+      第15節：Adding the Messaging feature
+      第16節：Identity and role management
+      第17節：SignalR
+      第18節：Unit of work and finishing touches
+      第19節：Publising
     </pre>
   </div>
   `;
