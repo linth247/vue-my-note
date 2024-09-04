@@ -38,6 +38,7 @@
         <li> <RouterLink to="/dotnet7_vue3">Dotnet7_vue3</RouterLink> </li>
         <li> <RouterLink to="/vscode_function">VS Code小功能</RouterLink> </li>
         <li> <RouterLink to="/video">Video</RouterLink> </li>
+        <li> <RouterLink to="/dotnetapi_angular">DotnetAPI_Angular</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>
@@ -72,7 +73,7 @@
   }
 
   .app-header-nav {
-    width: 820px;
+    width: 1024px;
     display: flex;
     padding-left: 40px;
     position: relative;

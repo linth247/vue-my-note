@@ -15,6 +15,7 @@ import router_Beach from '@/views/Dotnet7_vue3/router_Beach.vue'
 import ConfirmDeletePopup from '@/views/Dotnet7_vue3/ConfirmDeletePopup.vue'
 import VSCode_Function from '@/views/VSCode_Function/index.vue'
 import Video from '@/views/Video/index.vue'
+import DotnetAPI_Angular from '@/views/DotnetAPI_Angular/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,6 +88,10 @@ const router = createRouter({
         {
           path:'/video',
           component: Video
+        },
+        {
+          path:'/dotnetapi_angular',
+          component: DotnetAPI_Angular
         },
       ]
     },
