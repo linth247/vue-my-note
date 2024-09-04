@@ -1,5 +1,6 @@
 <script setup>
-  import DeployVite from './components/_4_deployVite.vue'
+  // import DeployVite from '@/views/others/components/_4_deployVite.vue'
+    import DeployVite from './components/_4_deployVite.vue'
   import {ref} from 'vue'
   let show = ref(false)
 

@@ -731,7 +731,61 @@ const content = `
           storeToRefs (只管數據)
 
         //================== Day2-05-項目起步-項目初始化和git管理
+        npm init vue@latest
+        Project name: vue3-rabbit
+        Add Vue Router for single Page Application development? Yes
+        Add Pinia for state management? Yes
+        Add ESLint for code quality? Yes
+        
+        code .
+        cd vue-rabblit
+        npm install
+        npm run dev
+
+        src 目錄調整
+        ----------------------------
+        src底下新增資料夾
+        apis          -- api接口文件夾
+        composables   -- 組合函數文件夾
+        directives    -- 全局指令文件夾
+        styles        -- 全局樣式文件夾
+        utils         -- 工具函數文件夾
+
+        git 管理項目
+        基於create-vue 創建出來的項目，默認沒有初始化git倉庫，需要我們手動初始化
+
+        執行命令並完成首次提交
+        1.git init
+        2.git add .
+        3.git commit -m "init"
+
         //================== Day2-06-項目起步-别名路徑聯想設置
+        什麼是別名路徑聯想提示
+        在編寫代碼的過程中，一旦輸入 @/, VSCode會立刻聯想出src下的所有子目錄和文件，統一文件路徑訪問，
+        不容易出錯
+
+        如何進行配置
+        1.在項目的根目錄下新增jsconfig.json文件
+        2.添加json格式的配置項，如下：
+        {
+          "compilerOptions":{
+            "baseUrl":"./",
+            "paths": {
+              "@/*":[
+                "src/*"  ==> 輸入@自動聯想src目錄
+              ]
+            }
+          }
+        }
+          
+        // 真正會配置的是在vite.config.js
+          resolve: {
+            //實際的路徑轉換 @ -> src
+            alias: {
+              '@': fileURLToPath(new URL('./src', import.meta.url))
+            }
+          },
+
         //================== Day2-07-項目起步-elementPlus自動按需導入配置
           # elementPlus引入
           ## 1. 安裝elementPlus和自動導入插件
@@ -976,7 +1030,49 @@ const content = `
           //}
 
         //================== Day2-13-Layout-靜態模版結構搭建
+        Nav區域
+        Header區域
+            二級路由出口區域
+        Footer區域
+
+        Layout/components/
+            LayoutHeader.vue (複製code)
+            LayoutFooter.vue (複製code)
+            LayoutNav.vue    (複製code)
+        
+        然後在index.vue 引入
+        script setup>
+          import LayoutNav from './components/LayoutNav.vue'
+          import LayoutHeader from './components/LayoutHeader.vue'
+          import LayoutFooter from './components/LayoutFooter.vue'
+          import LayoutFixed from './components/LayoutFixed.vue'
+
+          // 觸發獲取導航列表的action
+          import {useCategoryStore} from '@/stores/categoryStore'
+          import {onMounted} from 'vue'
+
+          const categoryStore = useCategoryStore()
+
+          // 觸發getCategory，才會有state的資料
+          onMounted(() => categoryStore.getCategory())
+        /script>
+
+        template>
+            <-LayoutFixed/>
+            <-LayoutNav />
+            <-LayoutHeader />
+            <-!-- 添加key 破壞複用機制 強制銷毀重建 -->
+            <-!-- <RouterView :key="$route.fullPath"/> -->
+            <-RouterView/>
+            <-LayoutFooter />
+        /template>
+       
+
         //================== Day2-14-Layout-字體圖標引入
+        
+
+
+
         //================== Day2-15-Layout-一級導航渲染
         //================== Day2-16-Layout-吸頂導航交互實現
         //================== Day2-17-Layout-Pinia優化重覆請求

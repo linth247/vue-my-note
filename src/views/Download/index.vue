@@ -9,7 +9,7 @@
   <!-- <div v-html="content"></div> -->
   <div id="Vue3" class="content">
     <div class="box">
-      //-----------Vue3
+      <div style="padding-top:20px">【Vue3】</div>
       <div><a href="https://www.youtube.com/watch?v=LlYhPO8Ti2U" target="_blank">
         1.NET7 Web API | SQL Database | VueJS(3.0) - Composition API | CRUD| Full Video<span class="pdf">YouTube</span></a> 
             <p>.解決CORS問題</p>
@@ -23,13 +23,20 @@
       download href="https://drive.google.com/uc?export=download&id=10LPanB6adG6BLF0cKcM3H-VCSvUWwf8A">
       3.vue-rabbit_my 小兔鮮<span class="pdf">download</span></a></div>
       <div><a
+      download href="https://drive.google.com/uc?export=download&id=1AXgm42kcojPX2g7EfrSmHyb-N1BJAAMi">
+      4.vue-rabbit_sku 小兔鮮<span class="pdf">download</span></a></div>
+      <div><a
       download href="https://drive.google.com/uc?export=download&id=18N6U0JeeUsS6EhGGz2jvh3aZK41L-uBc">
-      4.vue3-basic-project-my(mock)<span class="pdf">download</span></a></div>
+      5.vue3-basic-project-my(mock)<span class="pdf">download</span></a></div>
       <div><a
       download href="https://drive.google.com/uc?export=download&id=1Xe_GxmzXJVSIxMnqw3cm15YkLLQc4tWD">
-      5.vue3-basic-project-my(有驗證名字不能重覆update)<span class="pdf">download</span></a></div>
+      6.vue3-basic-project-my(有驗證名字不能重覆update)<span class="pdf">download</span></a></div>
+      <div><a
+      download href="https://drive.google.com/uc?export=download&id=1551IhmQAwld3cmTH60XHFYvEbvCj2Hfo">
+      7.台灣濕地學會<span class="pdf">download</span></a></div>
+
       
-      //-----------WEBAPI
+      <div style="padding-top:20px">【WebAPI】</div>
       <div><a href="https://blog.talllkai.com/ASPNETCore" target="_blank">
       1.完整且輕鬆學習ASP.NET Core Web API<span class="pdf">Web</span></a></div>
       <div><a href="https://www.youtube.com/watch?v=dXUfZuf1Wp4&list=PLneJIGUTIItuqdxuDBEKCrvXCtCdUf_Xm" target="_blank">
