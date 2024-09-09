@@ -303,7 +303,7 @@ toTop.scrollToTop =  true;
             [StartEnd]
             public class TodoListPostDto
             {
-              // [TotoNameAttribute] // Attribute可以拿掉
+              // [TotoNameAttribute] // Attribute可以省略，拿掉
               [TotoName]
               public string Name {get;set;}
           
@@ -312,7 +312,7 @@ toTop.scrollToTop =  true;
           
           <a href="https://www.youtube.com/watch?v=fethjeEzMU4&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=46" target="_blank">
           46.【8.模型資料驗證】ASP.NET Core Web API 入門教學(8_2) - 自訂類別模型資料驗證標籤和傳值</a>
-              //新增一個類別檔，StartEndAttribute.cs
+              //新增一個類別檔，ValidationAttributes/StartEndAttribute.cs
             public class StartEndAttribute: ValidationAttribute
             {
               protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -321,18 +321,21 @@ toTop.scrollToTop =  true;
           
                 if(st.StartTime >= st.EndTime)
                 {
-                  return new ValidationResult("開始時間不可以大於結束時間", new string[] {"time"});
+                  // 開始時間，大於結東時間，就回傳訊息
+                  return new ValidationResult("開始時間不可以大於結束時間", new string[] {"time"}); // time是回傳錯誤欄位
                 }
                 return ValidationResult.Success;
               }
             }
-          
-              //新增一個類別檔，TestAttribute.cs
+            
+            // 想要傳值，做驗證
+            //新增一個類別檔，ValidationAttributes/TestAttribute.cs
             public class TestAttribute: ValidationAttribute
             {
               private string _tvalue;
-              public string Tvalue = "de1";
-              public TestAttribute(string tvalue = "de")
+              public string Tvalue = "de1"; // 預設值
+              // 建立一個建構子，簡單傳一個string
+              public TestAttribute(string tvalue = "de") // 預設值
               {
                 _tvalue = tvalue;
               }
@@ -346,10 +349,10 @@ toTop.scrollToTop =  true;
             }
           
           
-              //TodoListPostDto.cs
+            //TodoListPostDto.cs
             [StartEnd]
-            // [Test("123")]
-            [Test(Tvalue = "321")]
+            // [Test("123")] // 丟值進去
+            [Test(Tvalue = "321")] // 當想要傳值，就可以在這裡傳值，不然沒有傳，是預設值
             public class TodoListPostDto
             {
               // [TotoNameAttribute]
@@ -364,10 +367,10 @@ toTop.scrollToTop =  true;
           
             //TodoListPostDto.cs
             //...
-            // public class TodoListPostDto: IValidatableObject
+            // public class TodoListPostDto: IValidatableObject // 這個實作這個介面
             // 要實作介面
           
-            // 驗證邏輯，不用寫成標籤，直接寫在Dto裡面
+            // 驗證邏輯，不用寫成標籤，直接寫在Dto類別裡面
             if(fineName.FirstOrDefault() != null)
             {
               yield return new ValidationResult("已存在相同的代辦事項", new string[]{"Name"});
@@ -377,6 +380,7 @@ toTop.scrollToTop =  true;
             {
               yield return new ValidationResult("開始時間不可以大於結束時間", new string[]{"Time"});
             }
+
           <a href="https://www.youtube.com/watch?v=f_qdCpua_G8&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=48" target="_blank">
           48.【8.模型資料驗證】ASP.NET Core Web API 入門教學(8_4) - 繼承抽象化驗證資料類別</a>
             把PUT及POST共同的部份，寫成抽象化類別，再去繼承

@@ -1069,13 +1069,118 @@ const content = `
        
 
         //================== Day2-14-Layout-字體圖標引入
-        
 
+        //https://www.iconfont.cn/
+        index.html
+            <-!DOCTYPE html>
+            <-html lang="en">
 
+            <-head>
+              <-meta charset="UTF-8">
+              <-link rel="icon" href="/favicon.ico">
+              <-meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <-title>Vite App</title>
+              <-link rel="stylesheet" href="//at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
+            <-/head>
+
+            body>
+              <-div id="app">/div>
+              <-script type="module" src="/src/main.js">/script>
+            /body>
+
+            /html>
 
         //================== Day2-15-Layout-一級導航渲染
+        功能描述
+        使用後端接口渲染一級路由導航
+
+        實現步驟
+        1.根據接口文檔封裝接口函數
+        2.發送請求獲取數據列表
+        3.v-for渲染頁面
+
+        在apis新增一個模塊，layout.js
+
+        import httpInstance from "@/utils/http"
+        function getCategoryAPI(){
+          return httpInstance({
+            url:'/home/category/head'
+          })
+        }
+
+        在Layout/components/LayoutHeader.vue
+
+        import {getCategoryAPI} from '@/apis/layout'
+        
+        const categoryList = ref([])
+        const getCategory = async() => {
+          const res = await getCategoryAPI()
+          console.log(res)
+          categoryList.value = res.result
+        }
+        onMounted(()=>{
+          getCategory()
+        })
+
+
         //================== Day2-16-Layout-吸頂導航交互實現
+        吸頂交互
+        要求：瀏覽器在上下滾動的過程中，如果距離頂部的滾動距離大於78px，吸頂導航顯示，小於78隱藏
+        
+        準備吸頂導航組件 -> 獲取滾動距離 -> 以滾動距離做判斷條件，控制組件盒子展示隱藏
+        在Layout/components/LayoutFixed.vue
+
+        安裝 VueUse: npm i @vueuse/core
+            useScroll
+            imoprt { useScroll } from '@vueuse/core'
+
+            const el = ref<HTMLElement | null>(null)
+            const { x, y, isScrolling, arrivedState, directions } = useScroll(el)
+
+            template>
+              div ref="el"></div>
+            /template>
+        
+        // 示例
+        //vueUse
+        import { useScroll } from '@vueuse/core'
+        const { y } = useScroll(window)
+
+        template>
+          div class="app-header-sticky" :class="{ show: y > 78 }">
+
         //================== Day2-17-Layout-Pinia優化重覆請求
+        為什麼要優化?
+        結論：兩個導航鞏的列表是完全一致的，但是要發送兩次網路請求，存在浪費。
+        通過Pinia集中管理數據，再把數據給組件使用
+
+        Pinia：定義 state, action
+
+        新增一個store, category.js
+
+        import { ref } from 'vue'
+        import { defineStore } from 'pinia'
+        import { getCategoryAPI } from '@/apis/layout'
+
+        export const useCategoryStore = defineStore('category', () => {
+            // 導航列表的數據管理
+            // state 導航列表數據
+            const categoryList = ref([])
+
+            // action 獲取導航數據的方法
+            const getCategory = async () => {
+                const res = await getCategoryAPI()
+                categoryList.value = res.result
+            }
+            
+            return {
+                categoryList,
+                getCategory
+            }
+        })
+
+
+
         //================== Day3-01-Home-整體結構拆分和分類實現
         //================== Day3-02-Home-banner輪播圖實現
         //================== Day3-03-Home-面板組件封裝

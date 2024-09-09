@@ -51,6 +51,16 @@
         https://blog.poychang.net/categories/
       </a> 
     </div>
+    <div>8.阿里巴巴向量圖標庫: iconfont
+      <a href="https://www.iconfont.cn/" target="_blank">
+        https://www.iconfont.cn/
+      </a> 
+    </div>
+    <div>9.VueUse 中文文檔
+      <a href="https://vueuse.pages.dev/" target="_blank">
+        https://vueuse.pages.dev/
+      </a> 
+    </div>
   </div>
 
   <toTop></toTop>
