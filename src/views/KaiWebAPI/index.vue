@@ -370,7 +370,7 @@ toTop.scrollToTop =  true;
             // public class TodoListPostDto: IValidatableObject // 這個實作這個介面
             // 要實作介面
           
-            // 驗證邏輯，不用寫成標籤，直接寫在Dto類別裡面
+            // 驗證邏輯，不用寫成標籤，直接寫在Dto類別裡面, 也可以同時驗證多個邏輯，回傳
             if(fineName.FirstOrDefault() != null)
             {
               yield return new ValidationResult("已存在相同的代辦事項", new string[]{"Name"});
@@ -383,9 +383,14 @@ toTop.scrollToTop =  true;
 
           <a href="https://www.youtube.com/watch?v=f_qdCpua_G8&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=48" target="_blank">
           48.【8.模型資料驗證】ASP.NET Core Web API 入門教學(8_4) - 繼承抽象化驗證資料類別</a>
-            把PUT及POST共同的部份，寫成抽象化類別，再去繼承
+            把PUT及POST共同的部份，寫成抽象化類別，再去繼承(抽象化類別，只能做繼承使用，不能new, 不能被創建出來)
             新增Abstracts\\TodoListEditDtoAbstract.cs
             把TodoListPostDto 通通剪下，貼上
+
+            當傳進來TodoListPostDto的時候，自動會到TodoListEditDtoAbstract: IValidatableObject
+            來做驗證(直接會到下面程式做驗證)
+            public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+
           <a href="https://www.youtube.com/watch?v=DQxGDFZn_6Y&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=49" target="_blank">
           49.【9.使用DI依賴注入功能】ASP.NET Core Web API 入門教學(9_1) - 基本DI依賴注入用法_GET</a>
             主要目的，可以把程式拆分出去
@@ -394,7 +399,7 @@ toTop.scrollToTop =  true;
           
             把原本在TodoController裡面Get的code，搬到TodoListService
             在programs.cs 加上
-            builder.Services.AddScoped<TodoListService>();  // 注入
+            ☆builder.Services.AddScoped<TodoListService>();  // 注入
           
             商業邏輯-- 放在TodoListService.cs
             控制邏輯-- 放在TodoController.cs
