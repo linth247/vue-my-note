@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
 import Layout from '@/views/Layout/index.vue'
 import KaiWebAPI from '@/views/KaiWebAPI/index.vue'
+import KaiWebAPI2 from '@/views/KaiWebAPI2/index.vue'
 import RabbitVue3 from '@/views/RabbitVue3/index.vue'
 import Download from '@/views/Download/index.vue'
 import Others from '@/views/Others/index.vue'
@@ -27,6 +28,10 @@ const router = createRouter({
         {
           path:'',
           component: KaiWebAPI
+        },
+        {
+          path:'/kaiWebapi2',
+          component: KaiWebAPI2
         },
         {
           path:'/vue3',

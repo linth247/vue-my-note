@@ -32,6 +32,7 @@
           <RouterLink active-class="active" :to="`/category/${item.id}`">{{item.name}}</RouterLink> 
         </li> -->
         <li> <RouterLink to="/">WebAPI</RouterLink> </li>
+        <li> <RouterLink to="/kaiWebapi2">WebAPI2</RouterLink> </li>
         <li> <RouterLink to="/vue3">Vue3</RouterLink> </li>
         <li> <RouterLink to="/download">下載</RouterLink> </li>
         <li> <RouterLink to="/others">其他</RouterLink> </li>
