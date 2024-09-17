@@ -9,13 +9,17 @@ toTop.scrollToTop =  true;
 <template>
   <div>
     <h2>Dotnet7_vue3</h2>
+    
+    <a href="https://www.youtube.com/watch?v=LlYhPO8Ti2U" target="_blank">
+      https://www.youtube.com/watch?v=LlYhPO8Ti2U
+      </a>
     <div>.NET7 Web API | SQL Database | VueJS(3.0) - Composition API | CRUD</div>
   </div>
   <div>
     <div class="container">
       <ul class="app-header-nav" style="list-style: none;">
         <li> <RouterLink to="/_beach_info">_Beach_Info.vue</RouterLink> </li>
-        <li> <RouterLink to="/editbeach">AddBeach.vue</RouterLink> </li>
+        <li> <RouterLink to="/addbeach">AddBeach.vue</RouterLink> </li>
         <li> <RouterLink to="/beachList">BeachList.vue</RouterLink> </li>
         <li> <RouterLink to="/editbeach">EditBeach.vue</RouterLink> </li>
         <li> <RouterLink to="/routerbeach">router_Beach.vue</RouterLink> </li>

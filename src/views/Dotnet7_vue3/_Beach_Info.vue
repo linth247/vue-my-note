@@ -62,7 +62,7 @@ const temp = `
     https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/9.0.0-preview.7.24405.3
     dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 9.0.0-preview.7.24405.3
 
-    在專案新增資料夾 Data\Entities
+    在專案新增資料夾 Data/Entities
       新增檔案Beach.cs
           using System;
           using System.Collections.Generic;

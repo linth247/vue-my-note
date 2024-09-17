@@ -1,6 +1,10 @@
 <script setup>
   //import DeployVite from './components/_4_deployVite.vue'
 
+
+
+  import toTop from "@/UI/toTop.vue";
+  toTop.scrollToTop =  true;
 </script>
 
 <template>

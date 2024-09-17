@@ -1,7 +1,7 @@
 <script setup>
 
 const temp = `
-    script setup>
+    <"script setup>
     import { onMounted, ref } from 'vue';
     import axios from 'axios'
     import ConfirmDeletePopup from '@/components/ConfirmDeletePopup.vue';
@@ -34,7 +34,7 @@ const temp = `
 
     }
 
-    /script>
+    <"/script>
     <template>
         <div class="container">
             <div class="row mt-2">

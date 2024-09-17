@@ -1,7 +1,7 @@
 <script setup>
 
 const temp = `
-  script setup
+  <"script setup
       import axios from 'axios';
       import {reactive} from 'vue';
       import { useRouter } from 'vue-router';
@@ -21,7 +21,7 @@ const temp = `
           })
       }
 
-  /script>
+  <"/script>
   <template>
       <div class="container mt-4">
           <form @submit.prevent="addBeach">

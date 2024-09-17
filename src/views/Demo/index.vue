@@ -4,6 +4,9 @@
   import {ref} from 'vue'
   let show = ref(false)
 
+
+  import toTop from "@/UI/toTop.vue";
+  toTop.scrollToTop =  true;
 </script>
 
 <template>
