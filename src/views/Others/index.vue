@@ -165,6 +165,21 @@
         https://www.youtube.com/watch?v=rohq-Wqj0yI
       </a>
     </div>
+    <div>13.Native UI - 表單
+      <a href="https://www.naiveui.com/zh-CN/os-theme/components/form#inline.vue" target="_blank">
+        https://www.naiveui.com/zh-CN/os-theme/components/form#inline.vue
+      </a>
+    </div>
+    <div>14.Vue3 如何用 defineModel 實作 props/ emit 的父子元件傳值，讓傳值變得更方便簡單
+      <a href="https://muki.tw/vmodel-definemodel-props-emit/" target="_blank">
+        https://muki.tw/vmodel-definemodel-props-emit/
+      </a>
+    </div>
+    <div>15.Vue3 獲取子組件dom
+      <a href="https://wenku.csdn.net/answer/6j4iqoam25?ydreferer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8%3D" target="_blank">
+        https://wenku.csdn.net/answer/6j4iqoam25?ydreferer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8%3D
+      </a>
+    </div>
   </div>
 
   <toTop></toTop>
