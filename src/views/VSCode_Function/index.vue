@@ -1,6 +1,9 @@
 <script setup>
   //import DeployVite from './components/_4_deployVite.vue'
 
+  import { ref } from 'vue'
+  import VsCodeQuick2 from './components/_2_vscode.vue'
+  let show1 = ref(false)
 
 
   import toTop from "@/UI/toTop.vue";
@@ -20,7 +23,13 @@
         查詢 Open Workspace Settings => Wrap Tabs 打勾
       </p>
     </div>
-
+    <div>2.vs code 快捷鍵
+      <button @click="show1 = !show1">Toggle</button>
+      <Transition>
+        <!-- <div v-if="show">hello</div> -->
+        <div v-if="show1"><VsCodeQuick2 /></div>
+      </Transition>
+    </div>
   </div>
 
   <toTop></toTop>
@@ -52,5 +61,16 @@
   }
   p {
     padding-left: 20px;
+  }
+
+  /* we will explain what these classes do next! */
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
   }
 </style>
