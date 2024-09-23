@@ -15,6 +15,7 @@ import EditBeach from '@/views/Dotnet7_vue3/EditBeach.vue'
 import router_Beach from '@/views/Dotnet7_vue3/router_Beach.vue'
 import ConfirmDeletePopup from '@/views/Dotnet7_vue3/ConfirmDeletePopup.vue'
 import VSCode_Function from '@/views/VSCode_Function/index.vue'
+import Naive_ui from '@/views/Naive_ui/index.vue'
 import Video from '@/views/Video/index.vue'
 import DotnetAPI_Angular from '@/views/DotnetAPI_Angular/index.vue'
 
@@ -89,6 +90,10 @@ const router = createRouter({
         {
           path:'/vscode_function',
           component: VSCode_Function
+        },
+        {
+          path:'/Naive_ui',
+          component: Naive_ui
         },
         {
           path:'/video',

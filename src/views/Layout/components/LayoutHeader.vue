@@ -39,6 +39,7 @@
         <li> <RouterLink to="/dotnet7_vue3">Dotnet7_vue3</RouterLink> </li>
         <li> <RouterLink to="/vscode_function">VS Code小功能</RouterLink> </li>
         <li> <RouterLink to="/video">Video</RouterLink> </li>
+        <li> <RouterLink to="/Naive_ui">Naive-ui</RouterLink> </li>
         <li> <RouterLink to="/dotnetapi_angular">DotnetAPI_Angular</RouterLink> </li>
       </ul>
       <!-- <div class="search">
