@@ -30,6 +30,11 @@
         <div v-if="show1"><VsCodeQuick2 /></div>
       </Transition>
     </div>
+    <div>3.vs code 開發Extension
+      <p>TypeScript Vue Plugin(Volar)</p>
+      <p>Vue Language Features</p>
+      <p>Vue - Official</p>
+    </div>
   </div>
 
   <toTop></toTop>

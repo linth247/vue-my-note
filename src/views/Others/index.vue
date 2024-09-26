@@ -152,7 +152,7 @@
         <div v-if="show1"><Vue3Is /></div>
       </Transition>
     </div>
-    <div>11.Vue3 h函數的使用
+    <div>11.Vue3 h函數的使用(必看)
       <a href="https://www.bilibili.com/video/BV166421Z7nU/" target="_blank">
         https://www.bilibili.com/video/BV166421Z7nU/
       </a>

@@ -15,12 +15,12 @@
   <div>vue3+Naive UI</div>
   <!-- <div v-html="content"></div> -->
   <div id="Vite_to_github" class="content">
-    <div>1.ue3+Naive UI数据表格基本使用方式
+    <div>1.ue3+Naive UI數據表格基本使用方式
       <a href="https://blog.csdn.net/weixin_54570626/article/details/129407702" target="_blank">
         https://blog.csdn.net/weixin_54570626/article/details/129407702
       </a>
     </div>
-    <div>2.naive ui 数据表格操作加入两个按钮解决办法
+    <div>2.naive ui 數據表格操作加入兩個按鈕解決辦法
       <a href="https://blog.csdn.net/uglyduckling0412/article/details/131438996" target="_blank">
         https://blog.csdn.net/uglyduckling0412/article/details/131438996
       </a>
@@ -28,6 +28,11 @@
     <div>3.Naive UI之Data Table
       <a href="https://blog.csdn.net/aliceyang2012/article/details/127801611" target="_blank">
         https://blog.csdn.net/aliceyang2012/article/details/127801611
+      </a>
+    </div>
+    <div>4.vue3結合naiveui的表單規則寫法（回調）
+      <a href="https://www.cnblogs.com/lingern/p/16190795.html" target="_blank">
+        https://www.cnblogs.com/lingern/p/16190795.html
       </a>
     </div>
     <!-- <div>2.vs code 快捷鍵
