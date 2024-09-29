@@ -17,6 +17,7 @@ import ConfirmDeletePopup from '@/views/Dotnet7_vue3/ConfirmDeletePopup.vue'
 import VSCode_Function from '@/views/VSCode_Function/index.vue'
 import Naive_ui from '@/views/Naive_ui/index.vue'
 import Video from '@/views/Video/index.vue'
+import ES6 from '@/views/ES6/index.vue'
 import DotnetAPI_Angular from '@/views/DotnetAPI_Angular/index.vue'
 
 const router = createRouter({
@@ -98,6 +99,10 @@ const router = createRouter({
         {
           path:'/video',
           component: Video
+        },
+        {
+          path:'/es6',
+          component: ES6
         },
         {
           path:'/dotnetapi_angular',
