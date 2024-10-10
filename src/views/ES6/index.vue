@@ -34,10 +34,26 @@ const content = `
 
       greetEnglish('John', 'Doe');
       greetSpanish('John', 'Doe');
- 
+      
+      // 192. for in loop, for of loop
+      let Wilson = {
+        name : "Wilson Ren",
+        age: 26
+      };
+      for (let property in Wilson){
+        console.log(Wilson[property]);  // Wilson Ren, 26
+      }
+
+      let num = [100, 44, 22];
+      for(let i in num){
+        console.log(num[i]); // 100, 44, 22
+      }
+
+      // 物件不能用for of
     </pre>
   </div>
 `
+
 </script>
 
 <template>
