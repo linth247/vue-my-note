@@ -3054,7 +3054,22 @@ setTimeout(()=>{
 
       greetEnglish('John', 'Doe');
       greetSpanish('John', 'Doe');
- 
+      
+      // 192. for in loop, for of loop
+      let Wilson = {
+        name : "Wilson Ren",
+        age: 26
+      };
+      for (let property in Wilson){
+        console.log(Wilson[property]);  // Wilson Ren, 26
+      }
+
+      let num = [100, 44, 22];
+      for(let i in num){
+        console.log(num[i]); // 100, 44, 22
+      }
+
+      // 物件不能用for of
     </pre>
   </div>
 `,_f={__name:"index",setup(e){return Z.scrollToTop=!0,(t,o)=>($(),Q(q,null,[vf,b("div",{innerHTML:yf}),P(Z)],64))}},wf=e=>(Re("data-v-578d3ec3"),e=e(),Me(),e),Af=wf(()=>b("div",null,"我是DotnetAPI_Angular頁面",-1)),If=`
