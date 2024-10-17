@@ -515,14 +515,169 @@ toTop.scrollToTop =  true;
             Result Filters - 執行出來的結果，客製化回傳的結果
           <a href="https://www.youtube.com/watch?v=9cXUuql-__A&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=67" target="_blank">
           67.【13.Filter】ASP.NET Core Web API 入門教學(13_2) - AuthorizationFilter之自訂權限驗證</a>
+            
+          新增資料夾 Filters
+
+          定義一個回傳的DTO: 
+          publc class ReturnJson
+          {
+            public dynamic Data {get; set;}
+            public int HttpCode {get; set;}
+            public string ErrorMessage {get; set;}
+          }
+
+          新增檔案 -- 簡易型登入認證
+          public class TodoAuthorizationFilter: Attribute, IAuthorizationFilter
+          {
+            public void OnAuthorization(AuthorizationFilterContest context)
+            {
+              bool tokenFlag = context.HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues outValue);
+
+              var ignore = (from a in context.ActionDescriptor.EndPointMetadata
+                          where a.GetType()==typeof(AllowAnonymousAttribute)
+                          select a).FirstOrDefault();
+
+              if(ignore == null)
+              {
+                if(tokenFlag)
+                {
+                  //jwt 驗證
+                  if(outValue != "123")
+                  {
+                    //這裡Result程式就不會往下走
+                    constext.Result = new JsonResult(new ReturnJson()
+                    {
+                      Data="test1",
+                      HttpCode = 401,
+                      ErrorMessage = "沒有登入"
+                    });
+                  }
+                }else{
+                  constext.Result = new JsonResult(new ReturnJson()
+                  {
+                    Data="test2",
+                    HttpCode = 401,
+                    ErrorMessage = "沒有登入"
+                  });
+                }
+              }
+            }
+          }
+
+          //[TypeFilter(typeof(TodoAuthorization))]
+          [TodoAuthorizationFilter]  // 因為繼承了Attribute, 就可以這樣寫
+          [HttpGet] 
+          // 應該要放在全域的地方
+
+          // 設定檔設定：program.cs
+          service.AddMvc(options => {
+            //options.Filters.Add(new AuthorizationFilter());
+            options.Filters.Add(new TodoAuthorizationFilter());
+          });
+          // 全部的Api都受到控管
+          // Login不能受到控管
+          [AllowAnonymous]  // 在login上匿名標籤，就不會受到驗證控管
+
+
+          //TodoAuthorizationFilter2
+          public class TodoAuthorizationFilter2: Attribute, IAuthorizationFilter
+          {
+           ly TodoContext _todoContet;
+            public string Roles = "";
+            // public TodoAuthorizationFilter2(TodoContext todoContext)
+            // {
+            //   _todoContet = todoContext
+            // }
+            public void OnAuthorization(AuthorizationFilterContest context)
+            {
+              TodoContext _todoContet = (TodoContext)context.HttpContext.RequestServices.GetService(typeof(TodoContext));
+
+              // 取得資料庫資料 _todoContet
+              var role = ()from a in _todoContet.Roles
+                          where a.Name == Roles
+                          && a.Empployee == 看是誰進來的Id
+                          select a).FirstOrDefault();
+              if(role == null)
+              {
+                constext.Result = new JsonResult(new ReturnJson()
+                {
+                  Data = Roles,
+                  HttpCode = 401,
+                  ErrorMessage = "沒有登入"
+                });
+              }
+            }
+          }
+
+          [TodoAuthorizationFilter2(Roles="aaa")]          
           <a href="https://www.youtube.com/watch?v=XFkR101v3zI&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=68" target="_blank">
           68.【13.Filter】ASP.NET Core Web API 入門教學(13_3) - ResourceFilter之檢查檔案大小及副檔名</a>
+          
+          檔案的邏輯檢查
+          
+          public class FileLimitAttribute : Attribute, IResourceFilter
+          {
+            public long Size = 100000;
+            public FileLimitAttribute(long size=1000)
+            {
+              Size = size;
+            }
+
+            public void OnResourceExecuted(ResourceExecutedContext context)
+            {
+            }
+            public void OnResourceExecuting(ResourceExecutedContext context)
+            {
+              var files = context.HttpContext.Request.Form.Files;
+              foreach(var temp in files)
+              {
+                if(temp.Length > (1024 * 1024 * Size))
+                {
+                  // 這裡直接回傳
+                  constext.Result = new JsonResult(new ReturnJson()
+                  {
+                    Data = "test1",
+                    HttpCode = 400,
+                    ErrorMessage = "檔案太大囉"
+                  });
+                }
+
+                if(Path.GetExtension(temp.FileName)!= ".mp4")
+                {
+                  // 這裡直接回傳
+                  constext.Result = new JsonResult(new ReturnJson()
+                  {
+                    Data = "test1",
+                    HttpCode = 400,
+                    ErrorMessage = "只允許上傳mp4"
+                  });
+                }
+              }
+            }
+          }
+
+          // 上傳檔案的Api
+          [HttpPost]
+          //[FileLimit(Size = 1)] // 只能傳1mb的檔案
+          [FileLimit(1)] // 只能傳1mb的檔案，用建構子的方式傳送
+          public void Post([FromForm] IFormFileCollectino file, [FromForm] Guid id)
+          {
+            string rootRoot = _env.ContentRootPath + @"\\wwwroot\\UploadFiles\\" + id + "\\";
+
+            if(!Directory.Exists(rootRoot))
+            {
+              Directory.CreateDirectory(rootRoot);
+            }
+          }
+
+
           <a href="https://www.youtube.com/watch?v=uLpIwyq_B5g&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=69" target="_blank">
           69.【13.Filter】ASP.NET Core Web API 入門教學(13_4) - ActionFilter之Log紀錄</a>
           <a href="https://www.youtube.com/watch?v=0MogPVe_l3E&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=70" target="_blank">
           70.【13.Filter】ASP.NET Core Web API 入門教學(13_5) - ResultFilter之統一回傳格式紀錄</a>
           <a href="https://www.youtube.com/watch?v=gqDW63Tnq8c&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=71" target="_blank">
           71.【14.IIS部署】ASP.NET Core Web API 入門教學(14_1) - Windows Server 2019安裝IIS</a>
+          
           <a href="https://www.youtube.com/watch?v=RldzjCIkQ84&list=PLneJIGUTIItsqHp_8AbKWb7gyWDZ6pQyz&index=72" target="_blank">
           72.【14.IIS部署】ASP.NET Core Web API 入門教學(14_2) - 發佈、部署到IIS&系列完結語</a>
     </pre>
