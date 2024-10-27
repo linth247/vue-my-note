@@ -2,38 +2,53 @@
   import DeployVite from './components/TodoListEditDtoAbstract.vue'
   import AsyncController from './components/AsyncController.vue'
   import AuthController from './components/AuthController.vue'
-
-  import { ref } from 'vue'
-
+  import {ref} from 'vue'
   let show1 = ref(false)
   let show2 = ref(false)
   let show3 = ref(false)
+  let show4 = ref(false)
+  
+  const isActive = ref(true)
+  const iActive = () => {
+    isActive.value = !isActive.value
+  }  
+
 
   import toTop from "@/UI/toTop.vue";
   toTop.scrollToTop =  true;
 </script>
 
 <template>
-   <!-- <div v-html="content"></div> -->
+
+  <div>這是WebAPI2</div>
+  <!-- <div v-html="content"></div> -->
   <div id="Vite_to_github" class="content">
-    <div class="title">1.DeployVite
-      <button @click="show1 = !show1">Toggle</button>
-      <Transition>
-        <div v-if="show1"><DeployVite /></div>
-      </Transition>
+    <div style="width:15%;background-color: white;">{{ isActive }}
+      <button @click="iActive" :class="{ active: isActive }">>Abstract\TodoListEditDtoAbstract.cs</button>
+      <button @click="iActive" :class="{ active: isActive }">Controller\AsyncController.cs</button>
+      <button @click="show3 = !show3">Controller\AuthController.cs</button>
     </div>
-    <div class="title">2.AsyncController
-      <button @click="show2 = !show2">Toggle</button>
-      <Transition>
-        <div v-if="show2"><AsyncController /></div>
-      </Transition>
+
+    <div style="width:80%">
+      <p>
+        <Transition>
+          <div v-if="isActive"><DeployVite /></div>
+        </Transition>
+      </p>
+      <p>
+        <Transition>
+          <div v-if="show2"><AsyncController /></div>
+        </Transition>
+      </p>
+      <p>
+        <Transition>
+          <div v-if="show3"><AuthController /></div>
+        </Transition>
+      </p>
+
     </div>
-    <div class="title">3.AsyncController
-      <button @click="show3 = !show3">Toggle</button>
-      <Transition>
-        <div v-if="show3"><AuthController /></div>
-      </Transition>
-    </div>
+
+    
 
 
   </div>
@@ -42,9 +57,10 @@
 </template>
 
 <style scoped lang="scss">
-.title{
-  color:#5DC2A5
-}
+  .active {
+    color: red;
+    background-color: orange;
+  }
   .pdf {
     background-color: rgb(170, 63, 63);
     color: white; 
@@ -59,9 +75,9 @@
     // justify-content: center;
   }
   .content {
-    // display:flex; 
+    display:flex; 
     // height: 800vh;
-    background-color: #282923;
+    // background-color: #282923;
     padding-bottom: 300px;
     color:#c1cccc; 
     font-size: 1em;
