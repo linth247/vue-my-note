@@ -4,6 +4,7 @@
   import Vue3_is_10 from './components/_10_vue3_is.vue'
   import vue3_is_11 from './components/_11_vue3_is.vue'
   import quartz_16 from './components/_16_Quartz.vue'
+  import cors_17 from './components/_17_Cors.vue'
   import HelloWorld from './components/HelloWorld.vue'
 
   import { h, ref } from 'vue'
@@ -11,6 +12,7 @@
   let show1 = ref(false)
   let show2 = ref(false)
   let show16 = ref(false)
+  let show17 = ref(false)
 
   const msg = ref('1.Hello Vue3 + Vite')
   const comp = h(
@@ -196,6 +198,17 @@
       <Transition>
         <!-- <div v-if="show">hello</div> -->
         <div v-if="show16"><quartz_16 /></div>
+      </Transition>
+    </div>
+
+    <div>17.CORS 跨來源資源共用 - 我與 ASP.NET Core 3 的 30天
+      <a href="https://ithelp.ithome.com.tw/articles/10245157" target="_blank">
+        https://ithelp.ithome.com.tw/articles/10245157
+      </a>
+      <button @click="show17 = !show17">Toggle</button>
+      <Transition>
+        <!-- <div v-if="show">hello</div> -->
+        <div v-if="show17"><cors_17 /></div>
       </Transition>
     </div>
 

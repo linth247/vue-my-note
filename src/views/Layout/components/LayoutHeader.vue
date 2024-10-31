@@ -78,40 +78,54 @@
   .app-header-nav {
     width: 1024px;
     display: flex;
-    padding-left: 40px;
+    // padding-left: 40px;
     position: relative;
     z-index: 998;
-  
-    li {
-      margin-right: 40px;
-      // width: 60px;
-      text-align: center;
-      // background-color:orange;
-  
-      a {
-        font-size: 16px;
-        line-height: 32px;
-        height: 32px;
-        display: inline-block;
-  
-        &:hover {
-          color: $xtxColor;
-          border-bottom: 1px solid $xtxColor;
-          background-color: white;
-          color: black;
-          background-color:orange;
-          border-radius: 0.2rem 0.2rem 0 0;
-          padding: 0 10px;
-        }
-      }
-  
-      .active {
-        color: $xtxColor;
-        border-bottom: 1px solid $xtxColor;
-        // color: black;
-        // background-color:orange;
+    li{
+      border: 1px solid #a4c8f0;
+      margin-right: 5px;
+      a:hover{
+        // color: $xtxColor;
+        // color:white;
+        // border-bottom: 1px solid $xtxColor;
+        background-color: white;
+        color: black;
+        background-color:orange;
+        border-radius: 0.2rem 0.2rem 0 0;
+        // padding: 0 10px;
       }
     }
+  
+    //li {
+    //  margin-right: 40px;
+    //  // width: 60px;
+    //  text-align: center;
+    //  // background-color:orange;
+  //
+    //  a {
+    //    font-size: 16px;
+    //    line-height: 32px;
+    //    height: 32px;
+    //    display: inline-block;
+  //
+    //    &:hover {
+    //      color: $xtxColor;
+    //      border-bottom: 1px solid $xtxColor;
+    //      background-color: white;
+    //      color: black;
+    //      background-color:orange;
+    //      border-radius: 0.2rem 0.2rem 0 0;
+    //      padding: 0 10px;
+    //    }
+    //  }
+  //
+    //  .active {
+    //    color: $xtxColor;
+    //    border-bottom: 1px solid $xtxColor;
+    //    // color: black;
+    //    // background-color:orange;
+    //  }
+    //}
   }
 
   .search {
