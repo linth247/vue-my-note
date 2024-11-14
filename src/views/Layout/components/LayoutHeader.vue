@@ -42,6 +42,7 @@
         <li> <RouterLink to="/es6">ES6</RouterLink> </li>
         <li> <RouterLink to="/Naive_ui">Naive-ui</RouterLink> </li>
         <li> <RouterLink to="/dotnetapi_angular">DotnetAPI_Angular</RouterLink> </li>
+        <li> <RouterLink to="/AI">AI</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>

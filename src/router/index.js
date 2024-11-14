@@ -19,6 +19,7 @@ import Naive_ui from '@/views/Naive_ui/index.vue'
 import Video from '@/views/Video/index.vue'
 import ES6 from '@/views/ES6/index.vue'
 import DotnetAPI_Angular from '@/views/DotnetAPI_Angular/index.vue'
+import AI from '@/views/AI/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -107,6 +108,10 @@ const router = createRouter({
         {
           path:'/dotnetapi_angular',
           component: DotnetAPI_Angular
+        },
+        {
+          path:'/ai',
+          component: AI
         },
       ]
     },
