@@ -4514,6 +4514,7 @@ LLM RAG   選修     Building LLM Applications with LangChain           LLMLLaMA
 
 
 
+
     </pre>
   </div>
 `,Up={__name:"index",setup(e){return z.scrollToTop=!0,(t,o)=>(V(),q(J,null,[Np,b("div",{innerHTML:Rp}),S(z)],64))}},Wp=su({history:Nc("/vue-my-note/"),routes:[{path:"/",component:hu,children:[{path:"",component:Su},{path:"/kaiWebapi2",component:Fu},{path:"/vue3",component:Vu},{path:"/download",component:zu},{path:"/others",component:Pd,children:[{path:"/_4_deployVite",component:Ti}]},{path:"/dotnet7_vue3",component:Rd,children:[{path:"",component:Ys},{path:"/_beach_info",component:Ys},{path:"/addbeach",component:Vd},{path:"/beachList",component:Jd},{path:"/editbeach",component:Xd},{path:"/routerbeach",component:sp},{path:"/confirmDeletePopup",component:cp}]},{path:"/vscode_function",component:vp},{path:"/Naive_ui",component:wp},{path:"/video",component:Cp},{path:"/es6",component:xp},{path:"/dotnetapi_angular",component:kp},{path:"/ai",component:Up}]}]}),zn=Zl(au);zn.use(oc());zn.use(Wp);zn.mount("#app");
