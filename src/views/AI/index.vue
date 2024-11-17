@@ -1,9 +1,10 @@
 <script setup>
 import toTop from "@/UI/toTop.vue";
+import {ref} from "vue"
 toTop.scrollToTop =  true;
 
 const content = `
-  <div id="Vue3-rabbit" style="display:flex; justify-content: center; background-color: #282923; color:#c1cccc; font-size: 14px;">
+  <div id="Vue3-rabbit" style="display:flex; justify-content: center; background-color: #282923; font-size: 14px;">
     <pre>
 //===============================================================================================//
 必修: Prompt Engineering for Developers
@@ -101,14 +102,29 @@ LLM RAG   選修     Building LLM Applications with LangChain           LLMLLaMA
   </div>
 `
 
+// color:#c1cccc; 
+const colorOptions = ref({
+  value: "rgba(193,204,204)",
+  btn: true,
+  theme: "light"
+});
 </script>
 
 <template>
+    <div>
+    <!-- <v3-color-picker v-model:value="color"></v3-color-picker> -->
+    <!-- <div class="demo" v-color="colorOptions" :style="{backgroundColor: colorOptions.value}"></div> -->
+    <div class="demo" @click="(event) => colorEvent(event, colorOptions)" :style="{backgroundColor: colorOptions.value}"></div>
+  </div>
   <div>WITS Collge 成就AI⼈才職涯</div>
-  <div v-html="content"></div>
+  <!-- <div v-html="content"></div> -->
+  <div v-html="content" :style="{ color: colorOptions.value }"></div>
   <toTop></toTop>
 </template>
 
 <style scoped lang="scss">
-
+.demo {
+  height: 50px;
+  width: 50px;
+}
 </style>
