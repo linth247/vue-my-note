@@ -15,7 +15,7 @@ const content = `
 
 	1.從零開始新建一個webapi項目，通過swagger查看
 	2.配置Log4Net實現日誌紀錄，輸出文本日誌到bin目錄
-		a.引內dll程序包 (log4Net, Microsoft.Extensions.Logging.Log4Net.AspNetCore)
+		a.引入dll程序包 (log4Net, Microsoft.Extensions.Logging.Log4Net.AspNetCore)
 
 		log4net
 		Nuget安裝
@@ -377,8 +377,463 @@ const content = `
 
 
 	
-	11.權限測試，更換登入帳號驗證權限
-	12.發布和部署
+	11.登入接口中，接入JWT，返回Token
+	12.新建API接口，標記需要授權
+	13.前端獲取token，請求時攜帶，請求資源
+			//在header裡攜帶token訪問後端接口
+			axios.defaults.headers.common["Authorization"] = "Bearer "+ sessionStorage["token"];
+  14.權限測試，更換登入帳號驗證權限
+
+	15.發布和部署
+
+
+		
+    1.ZhaoxiPotal.Common 專案
+      Db 資料夾
+        DbContext.cs
+
+        using SqlSugar;
+        using System;
+        using System.Collections.Generic;
+        using System.Linq;
+        using System.Text;
+        using System.Threading.Tasks;
+
+        namespace ZhaoxiPotal.Common.Db
+        {
+            /// <"summary>
+            /// 數據庫連接對象
+            /// <"/summary>
+            public class DbContext
+            {
+              public static SqlSugarClient db = new SqlSugarClient(new ConnectionConfig()
+              {
+                public static SqlSugarClient db = new SqlSugarClient(new ConnectionConfig()
+                {
+                 ConnectionString = "Data Source=127.0.0.1;Initial Catalog=Web;
+                  User ID=Web;Password=123456;MultipleActiveresultSets=True;encrypt=true;
+                  trustservercertificate=true", // 連接字符串
+                  DbType = DbType.SqlServer, // 數據庫類型
+                  IsAutoCloseConnection = true, // 不設成true要手動close
+              });
+           }
+         }
+
+ //---------------------
+MemoryHelper.cs
+using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Common
+{
+    public class MemoryHelper
+    {
+        private static IMemoryCache _memoryCache = null;
+
+        static MemoryHelper()
+        {
+            if(_memoryCache == null)
+            {
+                _memoryCache = new MemoryCache(new MemoryCacheOptions());
+            }
+        }
+
+        public static void SetMemory(string key, object value, int expireMins)
+        {
+            _memoryCache.Set(key, value, TimeSpan.FromMinutes(expireMins));
+        }
+
+        public static object GetMemory(string key)
+        {
+            return _memoryCache.Get(key);
+        }
+    }
+}
+//-----------
+Tools.cs
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Security.Policy;
+
+namespace ZhaoxiPotal.Common
+{
+    public class Tools
+    {
+        /// <summary>
+        /// 生成驗證碼的字符串
+        /// </summary>
+        /// <returns></returns>
+        public static string CreateValidateString()
+        {
+            //準備一組供驗證碼展示的數據
+            string chars = "abcdefghijklmnopqrstuvwxyz";
+            Random r = new(DateTime.Now.Millisecond);
+            string validateString = "";
+            int length = 4;
+            for(int i = 0; i < length; i++)
+            {
+                validateString += chars[r.Next(chars.Length)];
+            }
+            return validateString;
+        }
+
+        public static Byte[] CreateValidateCodeBuffer(string validateCode)
+        {
+            //bmp -> 位圖
+            //1. 創建畫布，設置畫布的長寬
+            using Bitmap bitmap = new(200, 60);
+
+            //2. 創建畫筆，告訴畫筆在哪個畫布上畫畫
+            Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(Color.White); // 用白色覆蓋畫布，並清除畫上所有的內容
+
+            //回家作業
+            //設置字體的參數(設置字體的名稱，大小，粗細以及斜體)
+            Font font = new("Consolas", 12, FontStyle.Bold | FontStyle.Italic);
+            //通過graphics.MeasureString方法計算字符串的長度
+            var size = graphics.MeasureString(validateCode, font);
+            //通過長生成新的畫布
+            //1.98 Convert.ToInt32(1.98) = 1
+            //向上取整：天花板函數；向下取整：地板函數
+            using Bitmap bitmapText = new(Convert.ToInt32(Math.Ceiling(size.Width)), Convert.ToInt32(Math.Ceiling(size.Height)));
+            //將文字寫入，生成圖片
+            Graphics graphicsText = Graphics.FromImage(bitmapText);
+
+            //將圖片縮放放到原畫布上
+
+            //3. 配置畫圖參數
+            //3.1 設置顏色刷范圍參數
+            Rectangle rf = new(0, 0, bitmap.Width, bitmap.Height);
+            //3.2 設置免子的顏色(設置為漸變)
+            LinearGradientBrush brush = new(rf, Color.Red, Color.DarkBlue, 1.2f, true);
+            //LinearGradientBrush brush = new(rf, Color.Orange, Color.DarkBlue, 0.2f, true);
+
+            //4. 將字符串繪制到場景中
+            graphicsText.DrawString(validateCode, font, brush, 0, 0);
+
+            graphics.DrawImage(bitmapText, 10, 10, 190, 50);
+            //graphics.DrawImage(bitmapText, 0, 0, 190, 50);
+            //5. 將圖片放到緩沖區中
+            //5.1 創建一個定於保存圖片的緩沖器
+            MemoryStream memoryStream = new();
+            //5.2 把圖片保存到緩沖區
+            bitmap.Save(memoryStream, ImageFormat.Jpeg);
+
+            //6. 這個時候圖片已經在緩沖區了，bitmap對象自然沒有用了，卸磨殺驢之
+            // bitmap.Dispose()
+            return memoryStream.ToArray();
+        }
+
+    }
+}
+
+//============================
+ZhaoxiPotal.Model專案
+Entities資料夾
+
+Users.cs
+using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Model.Entities
+{
+    public class Users
+    {
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
+        public Guid Id { get; set; }
+        //public int UserId { get; set; }
+        public string QQ { get; set; }
+        public string Mobile { get; set; }
+        public string PassWord { get; set; }
+        public string Name { get; set; }
+        public string NickName { get; set; }
+        public DateTime RegDate { get; set; }
+        public int LoginNum { get; set; }
+        public DateTime? LastLoginTime { get; set; }
+        public byte UserType { get; set; }
+        public string UserSex { get; set; }
+        public byte Status { get; set; }
+        public DateTime CreateTime { get; set; }
+        public int CreatorId { get; set; }
+        public DateTime? LastModifyTime { get; set; }
+        public int? LastModifierId { get; set; }
+    }
+}
+//------------
+Enum 資料夾
+
+EnumUserType.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Model.Enum
+{
+    public enum EnumUserType
+    {
+        普通用戶 = 1,
+        VIP用戶 = 2
+    }
+}
+
+//-----------------
+Courses.cs
+
+namespace ZhaoxiPotal.Model
+{
+    public class Courses
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Path { get; set; }
+        public string ValidCode { get; set; }
+        public string Content { get; set; }
+    }
+}
+
+
+//=====================
+ZhaoxiPotal.Service 專案
+
+Config資料夾
+AutoMapperConfigs.cs
+using AutoMapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ZhaoxiPotal.Model.Entities;
+using ZhaoxiPotal.Service.User.Dto;
+
+namespace ZhaoxiPotal.Service.Config
+{
+    /// <summary>
+    /// 管理映射關系
+    /// </summary>
+    public class AutoMapperConfigs : Profile
+    {
+        public AutoMapperConfigs()
+        {
+            CreateMap<"Users, UserDto>();
+            CreateMap<"UserDto, Users>();
+            CreateMap<"InputUserDto, Users>();
+        }
+    }
+}
+
+//------
+User資料夾
+  Dto 資料夾
+	  InputUserDto.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Service.User.Dto
+{
+    public class InputUserDto
+    {
+        public string QQ { get; set; }
+        public string Mobile {  get; set; }
+        public string PassWord {  get; set; }
+        public string Name {  get; set; }
+        public string UserSex {  get; set; }
+        public string ValidateKey {  get; set; }
+        public string ValidateCode {  get; set; }
+
+    }
+}
+
+LoginDto.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Service.User.Dto
+{
+    public class LoginDto
+    {
+        public string QQ { get; set; }
+        public string PassWord { get; set; }
+    }
+}
+
+UserDto.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZhaoxiPotal.Service.User.Dto
+{
+    public class UserDto
+    {
+        public string QQ {  get; set; }
+        public string Mobile { get; set; }
+        public string NickName {  get; set; }
+        public DateTime RegDate { get; set; }
+        public DateTime? LastLoginTime { get; set; }
+        public byte UserType { get; set; }
+        public string UserSex {  get; set; }
+        public byte Status {  get; set; }
+        public DateTime? CreateTime { get; set; }
+    }
+}
+
+//-------------
+IUserService.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ZhaoxiPotal.Model;
+using ZhaoxiPotal.Model.Entities;
+using ZhaoxiPotal.Service.User.Dto;
+
+namespace ZhaoxiPotal.Service.User
+{
+    public interface IUserService
+    {
+        /// <summary>
+        /// 登入
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        Task<Users> CheckLogin(LoginDto login);
+
+        //註冊
+
+        UserDto AddUser(InputUserDto input);
+
+        /// <summary>
+        /// 獲取VIP課程
+        /// </summary>
+        /// <returns></returns>
+        List<Courses> GetCourses();
+         
+    }
+}
+
+UserService.cs
+using AutoMapper;
+using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ZhaoxiPotal.Common.Db;
+using ZhaoxiPotal.Model;
+using ZhaoxiPotal.Model.Entities;
+using ZhaoxiPotal.Service.User.Dto;
+
+namespace ZhaoxiPotal.Service.User
+{
+    
+    public class UserService : IUserService
+    {
+        private readonly IMapper _mapper;
+        public UserService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+        /// <summary>
+        /// 登入
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
+        public async Task<Users> CheckLogin(LoginDto login)
+        {
+            return await DbContext.db.Queryable<Users>().FirstAsync(m => m.QQ.Equals(login.QQ) 
+							&& m.PassWord.Equals(login.PassWord));
+        }
+
+        /// <summary>
+        /// 註冊
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public UserDto AddUser(InputUserDto input)
+        {
+            Users user = TransInputDto(input);
+            if (!DbContext.db.Queryable<Users>().Any(m => m.QQ.Equals(input.QQ) 
+							|| m.Mobile.Equals(input.Mobile)))
+            {
+                DbContext.db.Insertable(user).ExecuteCommand();
+                return _mapper.Map<UserDto>(user);
+            }
+            else throw new Exception("QQ 或者 手機號已存在");
+        }
+        //public UserDto GetUserDto(int userId)
+        //{
+        //    var user = DbContext.db.Queryable<Users>().First(p => p.UserId == userId);
+        //    var userDto = _mapper.Map<UserDto>(user); 
+        //    return userDto;
+        //}
+
+        private Users TransInputDto(InputUserDto input)
+        {
+            var user = _mapper.Map<Users>(input);
+            var date = DateTime.Now;
+            //user.Id = Guid.NewGuid();
+            user.RegDate = date;
+            user.CreateTime = date;
+            user.LastModifyTime = date;
+            user.LoginNum = 0;
+            user.UserType = 1;
+            user.Status = 1;
+            user.CreatorId = 1;
+            user.LastModifierId = 1;
+            return user;
+        }
+
+        public List<Courses> GetCourses()
+        {
+            List<Courses> res = new List<Courses> ();
+            res.Add(new Courses() { Id = 1, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            res.Add(new Courses() { Id = 2, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            res.Add(new Courses() { Id = 3, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            res.Add(new Courses() { Id = 4, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            res.Add(new Courses() { Id = 5, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            res.Add(new Courses() { Id = 6, Name = "20210327Course001Redis-1", 
+						Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
+            return res;
+        }
+    }
+}
+
+
+
+
+
     </pre>
   </div>
 `
