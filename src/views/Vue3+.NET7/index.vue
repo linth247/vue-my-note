@@ -213,7 +213,7 @@ const content = `
 	   通過axios讀取json腳本數據，並渲染到頁面
 
 		 npm install axios --save
-		 import asiox form "axios"
+		 import axios form "axios"
 
 	9.後端接口權限驗證分析，與JWT實現認證和授權
 			
@@ -737,6 +737,7 @@ namespace ZhaoxiPotal.Service.User
 }
 
 UserService.cs
+
 using AutoMapper;
 using SqlSugar;
 using System;

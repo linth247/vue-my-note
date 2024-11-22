@@ -12,6 +12,7 @@
   "dependencies": {
     "element-plus": "^2.8.8",
     "node-sass": "^9.0.0",
+    "pdf-vue3": "^1.0.12",
     "pinia": "^2.1.7",
     "sass-loader": "^16.0.3",
     "v3-color-picker": "^2.0.0",

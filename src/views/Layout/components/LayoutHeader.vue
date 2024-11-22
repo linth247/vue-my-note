@@ -44,6 +44,7 @@
         <li> <RouterLink to="/dotnetapi_angular">DotnetAPI_Angular</RouterLink> </li>
         <li> <RouterLink to="/AI">AI</RouterLink> </li>
         <li> <RouterLink to="/Vue3+.NET7">Vue3+.NET7</RouterLink> </li>
+        <li> <RouterLink to="/pdf_vue3">pdf_vue3</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>
