@@ -22,9 +22,10 @@ toTop.scrollToTop =  true;
         <li> <RouterLink to="/confirmDeletePopup">ConfirmDeletePopup.vue</RouterLink> </li> -->
 
       <!-- </ul> -->
-        <span class="title"> <RouterLink to="/index1">Vue3前台</RouterLink> </span>
-        <span class="title"> <RouterLink to="/index2">.NET 7 後台</RouterLink> </span>
-        <span class="title"> <RouterLink to="/index3">如何运行当前项目</RouterLink> </span>
+        <span class="title"> <RouterLink to="/1-vue3">Vue3前台</RouterLink> </span>
+        <span class="title"> <RouterLink to="/2-net7">.NET 7 後台</RouterLink> </span>
+        <span class="title"> <RouterLink to="/3-run">如何運行當前項目</RouterLink> </span>
+        <span class="title"> <RouterLink to="/4-js">JavaScript</RouterLink> </span>
     </div>
     <br>
     <hr>

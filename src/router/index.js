@@ -22,9 +22,10 @@ import DotnetAPI_Angular from '@/views/DotnetAPI_Angular/index.vue'
 import AI from '@/views/AI/index.vue'
 import Vue3_NET7 from '@/views/Vue3+.NET7/index.vue'
 import pdf_vue3 from '@/views/pdf_vue3/index.vue'
-import index1 from '@/views/pdf_vue3/index1.vue'
-import index2 from '@/views/pdf_vue3/index2.vue'
-import index3 from '@/views/pdf_vue3/index3.vue'
+import index1 from '@/views/pdf_vue3/1-vue3.vue'
+import index2 from '@/views/pdf_vue3/2-net7.vue'
+import index3 from '@/views/pdf_vue3/3-run.vue'
+import index4 from '@/views/pdf_vue3/4-js.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -135,16 +136,20 @@ const router = createRouter({
               component: index1,
             },
             {
-              path:'/index1',
+              path:'/1-vue3',
               component: index1,
             },
             {
-              path:'/index2',
+              path:'/2-net7',
               component: index2,
             },
             {
-              path:'/index3',
+              path:'/3-run',
               component: index3,
+            },
+            {
+              path:'/4-js',
+              component: index4,
             },
           ]
         },   
