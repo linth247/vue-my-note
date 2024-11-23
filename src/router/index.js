@@ -26,6 +26,7 @@ import index1 from '@/views/pdf_vue3/1-vue3.vue'
 import index2 from '@/views/pdf_vue3/2-net7.vue'
 import index3 from '@/views/pdf_vue3/3-run.vue'
 import index4 from '@/views/pdf_vue3/4-js.vue'
+import vuejs_auth from '@/views/vuejs_auth/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -152,7 +153,11 @@ const router = createRouter({
               component: index4,
             },
           ]
-        },   
+        },
+        {
+          path:'/vuejs_auth',
+          component: vuejs_auth
+        },
       ]
     },
     // {
