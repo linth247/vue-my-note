@@ -501,7 +501,7 @@ const content = `
      		
      		<"!-- 當備份文件時，為文件名加的後綴 -->
      		<"datePattern value="yyyyMMdd.TXT" />
-     		<"!--<datePattern value="yyyy-MM-dd.lo\g"/>　<!–log檔的命名–>-->
+     		<"!--<datePattern value="yyyy-MM-dd.log"/><!–log檔的命名–>-->
      		
      		<"!-- 日誌最大個數，都是最新的 -->
      		<"!-- rollingStyle節點為Size時，只能有value個日誌 -->
