@@ -118,6 +118,7 @@ const colorOptions = ref({
   </div>
   <div>WITS Collge 成就AI⼈才職涯</div>
   <!-- <div v-html="content"></div> -->
+  <input v-model="colorOptions.value">
   <div v-html="content" :style="{ color: colorOptions.value }"></div>
   <toTop></toTop>
 </template>

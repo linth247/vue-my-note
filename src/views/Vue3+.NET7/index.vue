@@ -9,9 +9,9 @@ const content = `
   <div id="Vue3-rabbit" style="display:flex; justify-content: center; background-color: #282923; font-size: 14px;">
     <pre>
 	//===============================================================================================//
-	<a href="https://www.bilibili.com/video/BV16s4y1m7bd?vd_source=1a5937a80fc962029ba6a7b9ee9a1654&spm_id_from=333.788.videopod.episodes&p=25" target="_blank">
-	https://www.bilibili.com/video/BV16s4y1m7bd?vd_source=1a5937a80fc962029ba6a7b9....
-	</a>
+	<a href="https://www.bilibili.com/video/BV16s4y1m7bd?vd_source=1a5937a80fc962029ba6a7b9ee9a1654&spm_id_from=333.788.videopod.episodes&p=25" target="_blank">https://www.bilibili.com/video/BV16s4y1m7bd?vd_source=1a5937a80fc962029ba6a7b9....</a>
+	<a href="https://www.bilibili.com/video/BV1KZ421a7gV?spm_id_from=333.788.videopod.episodes&vd_source=1a5937a80fc962029ba6a7b9ee9a1654&p=22" target="_blank">
+	https://www.bilibili.com/video/BV1KZ421a7gV?spm_id_from=333.788.videopod.episod2....</a>
 
 	1.從零開始新建一個webapi項目，通過swagger查看
 	2.配置Log4Net實現日誌紀錄，輸出文本日誌到bin目錄
@@ -862,7 +862,7 @@ const colorOptions = ref({
   <!-- <div class="demo" @click="onClick1" :style="{backgroundColor: colorOptions.value}"></div> -->
   
   <div>Vue3+.NET7最新框架实战，手写电商管理后台 | 2023全新录制，前后分离架构(C#/.NET6/.NET Core)B1106</div>
-  <input v-model="activeColor">
+  <input v-model="colorOptions.value">
   <!-- <div v-html="content" :style="{ color: activeColor }"></div> -->
   <div v-html="content" :style="{ color: colorOptions.value }"></div>
   <toTop></toTop>
