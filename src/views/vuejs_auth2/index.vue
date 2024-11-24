@@ -783,7 +783,7 @@ const content = `
 `
 
 //color:#c1cccc
-const activeColor = ref('#c1cccc')
+// const activeColor = ref('#c1cccc')
 
 const colorOptions = ref({
   value: "rgba(193,204,204)",
@@ -805,7 +805,7 @@ const colorOptions = ref({
   <!-- <div class="demo" @click="onClick1" :style="{backgroundColor: colorOptions.value}"></div> -->
   
   <div></div>
-  <input v-model="activeColor">
+  <input v-model="colorOptions.value">
   <!-- <div v-html="content" :style="{ color: activeColor }"></div> -->
   <div v-html="content" :style="{ color: colorOptions.value }"></div>
   <toTop></toTop>

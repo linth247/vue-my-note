@@ -840,7 +840,7 @@ namespace ZhaoxiPotal.Service.User
 `
 
 //color:#c1cccc
-const activeColor = ref('#c1cccc')
+// const activeColor = ref('#c1cccc')
 
 const colorOptions = ref({
   value: "rgba(193,204,204)",
