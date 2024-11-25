@@ -8,6 +8,80 @@ toTop.scrollToTop =  true;
 const content = `
   <div id="Vue3-rabbit" style="display:flex; justify-content: center; background-color: #282923; font-size: 14px;">
     <pre>
+
+     =============================================================
+     數據庫
+     Users
+     Id in -> not null (自增長)
+     QQ nvarchar(MAX)
+     Mobile nvarchar(MAX)
+     PassWord nvarchar(MAX)
+     NickName nvarchar(20)
+     RegDate datetime2(7)
+     LioginNum int
+     LastLoginTime datetime2(7)
+     UserType tinyint
+     UserSex nvarchar(MAXtatus)
+     Status tinyint
+     CreateTime datetime2(7)
+     CreatorId int
+     LastModifyTime datetime2(7)
+     LastModifier int
+
+     USE [Web]
+     GO
+     
+     ALTER TABLE [dbo].[Users] DROP CONSTRAINT [DF_Users_Id]
+     GO
+     
+     /****** Object:  Table [dbo].[Users]    Script Date: 2024/11/24 下午 10:55:34 ******/
+     IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Users]') 
+     AND type in (N'U'))
+     DROP TABLE [dbo].[Users]
+     GO
+     
+     /****** Object:  Table [dbo].[Users]    Script Date: 2024/11/24 
+      * 下午 10:55:34 ******/
+     SET ANSI_NULLS ON
+     GO
+     
+     SET QUOTED_IDENTIFIER ON
+     GO
+     
+     CREATE TABLE [dbo].[Users](
+     	[Id] [uniqueidentifier] NOT NULL,
+     	[Name] [nvarchar](50) NOT NULL,
+     	[QQ] [nvarchar](max) NULL,
+     	[Mobile] [nvarchar](max) NULL,
+     	[PassWord] [nvarchar](max) NULL,
+     	[NickName] [nvarchar](20) NULL,
+     	[RegDate] [datetime2](7) NULL,
+     	[LoginNum] [int] NULL,
+     	[LastLoginTime] [datetime2](7) NULL,
+     	[UserType] [tinyint] NULL,
+     	[UserSex] [nvarchar](max) NULL,
+     	[Status] [tinyint] NULL,
+     	[CreateTime] [datetime2](7) NULL,
+     	[CreatorId] [int] NULL,
+     	[LastModifyTime] [datetime2](7) NULL,
+     	[LastModifierId] [int] NULL,
+      CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+     (
+     	[Id] ASC
+     )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF,
+      ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) 
+      ON [PRIMARY]
+     ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+     GO
+     
+     ALTER TABLE [dbo].[Users] ADD  CONSTRAINT [DF_Users_Id]  
+     DEFAULT (newid()) FOR [Id]
+     GO
+
+
+
+     
+
      ZhaoxiPotal.Common
      
      Db/DBContext.cs
@@ -30,6 +104,8 @@ const content = `
          }
          
      MemoryHelper.cs
+
+     install Microsoft.Extensions.Caching.Memory
      =============================================================
      using Microsoft.Extensions.Caching.Memory;
      using System;
@@ -329,7 +405,7 @@ const content = `
              /// </summary>
              /// <param name="login"></param>
              /// <returns></returns>
-             Task<Users> CheckLogin(LoginDto login);
+             Task<"Users> CheckLogin(LoginDto login);
      
              //註冊
      
@@ -339,7 +415,7 @@ const content = `
              /// 獲取VIP課程
              /// </summary>
              /// <returns></returns>
-             List<Courses> GetCourses();
+             List<"Courses> GetCourses();
               
          }
      }
@@ -374,9 +450,9 @@ const content = `
              /// </summary>
              /// <param name="login"></param>
              /// <returns></returns>
-             public async Task<Users> CheckLogin(LoginDto login)
+             public async Task<"Users> CheckLogin(LoginDto login)
              {
-                 return await DbContext.db.Queryable<Users>().FirstAsync(m => m.QQ.Equals(login.QQ) && m.PassWord.Equals(login.PassWord));
+                 return await DbContext.db.Queryable<"Users>().FirstAsync(m => m.QQ.Equals(login.QQ) && m.PassWord.Equals(login.PassWord));
              }
      
              /// <summary>
@@ -397,14 +473,14 @@ const content = `
              }
              //public UserDto GetUserDto(int userId)
              //{
-             //    var user = DbContext.db.Queryable<Users>().First(p => p.UserId == userId);
+             //    var user = DbContext.db.Queryable<"Users>().First(p => p.UserId == userId);
              //    var userDto = _mapper.Map<UserDto>(user); 
              //    return userDto;
              //}
      
              private Users TransInputDto(InputUserDto input)
              {
-                 var user = _mapper.Map<Users>(input);
+                 var user = _mapper.Map<"Users>(input);
                  var date = DateTime.Now;
                  //user.Id = Guid.NewGuid();
                  user.RegDate = date;
@@ -418,9 +494,9 @@ const content = `
                  return user;
              }
      
-             public List<Courses> GetCourses()
+             public List<"Courses> GetCourses()
              {
-                 List<Courses> res = new List<Courses> ();
+                 List<"Courses> res = new List<"Courses> ();
                  res.Add(new Courses() { Id = 1, Name = "20210327Course001Redis-1", Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
                  res.Add(new Courses() { Id = 2, Name = "20210327Course001Redis-1", Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
                  res.Add(new Courses() { Id = 3, Name = "20210327Course001Redis-1", Path = "https://pan.baidu.com/s/12312", ValidCode = "123456", Content = "1" });
@@ -776,6 +852,228 @@ const content = `
          }
      }
 
+
+    Login.vue
+    ===========================================
+    <"template>
+          <"h2>hihi<"/h2>
+          <"div style="width:50%;">
+            <"el-input placeholder="請輸入qq" v-model="qq"><"/el-input>
+            <"el-input placeholder="請輸入密碼" v-model="pwd"><"/el-input>
+            <"el-input placeholder="請輸入驗證碼" v-model="validateInput"><"/el-input>
+            <"img :src="validateCodeRef" alt="" @click="changeValidateCode"/>
+            <"el-button type="primary" @click="checkLogin">登入<"/el-button>
+          <"/div>
+    
+      <"!-- <"el-dialog>
+        <"div class="dialog-pad">
+          <"p class="user-no">
+            <"el-input placeholder="請輸入qq" v-model="qq"><"/el-input>
+          <"/p>
+          <"p class="password">
+            <"el-input placeholder="請輸入密碼" v-model="pwd"><"/el-input>
+          <"/p>
+          <"p class="validate">
+            <"el-input placeholder="請輸入驗證碼" v-model="validateInput"><"/el-input>
+            <"img :src="validateCodeRef" alt="" @click="changeValidateCode"/>
+          <"/p>
+          <"p class="login-submit">
+            <"el-button type="primary" @click="checkLogin">登入<"/el-button>
+          <"/p>
+        <"/div>
+      <"/el-dialog> -->
+    <"/template>
+    
+    <"script setup>
+    import { onMounted, ref } from 'vue';
+    import { login } from "../http";
+    // import { validateCodeRef, changeValidateCode } from "../utility/getValdate";
+    
+    const validateCode = "http://localhost:5088/Login/GetValidateCodeImages";
+    const qq = ref("123")
+    const pwd = ref("123")
+    const validateInput = ref("")
+    
+    let user = null;
+    const checkLogin = async() => {
+      // const validateKey = localStorage[VALIDATE_KEY];
+      // user = await login(qq.value, pwd.value, validateKey, validateInput.value);
+      user = await login(qq.value, pwd.value, "1", "ysgp");
+      
+      console.log("user=",user);
+      console.log("user.data=",user.data);
+      if(user.data!=""){
+        let userString = decodeURLComponent(
+          escape(window.atob(user.data.split(".")[1]))
+        );
+        sessionStorage["token"] = user.data;
+        debugger
+        sessionStorage["userInfo"] = userString;
+        useName.value = JSON.parse(userString).Name;
+        //登入成功後，隱藏登錄框
+        isShowLoginPad.value = false;
+      }else{
+        alert("請檢查用戶名密碼和驗證碼");
+      }
+    }
+    onMounted(()=>{
+      // validateCodeRef.value = validateCode + "?=" + getGuid();
+    });
+
+
+    <"/script>
+    
+    
+    http/index.js
+    =========================================================
+    import axios from 'axios'
+    import { ElLoading } from 'element-plus'
+    export const getCarousel = async() => {
+      return await axios.get("/json/carousel.json");
+    }
+    export const getLives = async() => {
+      return await axios.get("/json/lives.json");
+    }
+    export const getCompanyInfo = async() => {
+      return await axios.get("/json/company.json");
+    }
+    export const getCourse = async() => {
+      return await axios.get("/json/courses.json");
+    }
+    export const getRecruit = async() => {
+      return await axios.get("/json/recruit.json");
+    }
+    
+    export const login = async(qq, pwd, validateKey, validateCode) => {
+      const loadingInstance = ElLoading.service();
+      debugger
+      try{
+        // const res = await axios.get("http://localhost:62114/Login/CheckLogin/\${qq}/\${pwd}/\${validateKey}/\${validateCode}')
+        const res = await axios.get('http://localhost:5088/Login/CheckLogin/\${qq}/\${pwd}/\${validateKey}/\${validateCode}')
+    console.log("res=", res.data)
+        return res;
+      }catch(error)
+      {
+        console.log(error)
+      }finally{
+        loadingInstance.close()
+      }
+    }
+    
+    export const getToken = async(userId) => {
+      return (await axios.get('http://localhost:5088/user/GetToken?userId=\${userId}'')).data;
+    }
+    
+    export const getList = async(token = "") => {
+      //在header裡，攜帶token訪問後端接口  
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + sessionStorage["token"];
+      debugger
+      return (await axios.get('http://localhost:5088/user/GetCourses')).data;
+    }
+    
+    export const regist = async(nickName, qq, passWord, userSex, mobile, validateKey, validateCode) => {
+      return await axios.post('http://localhost.5088/user/RegistUser', {nickName, qq, passWord, userSex, mobile, validateKey, validateCode})
+    }
+
+    
+    Personal.vue
+    ============================================================
+      <"template>
+      <"div>
+        <"Pad left="VIP資源下載" subTitle="VIP學員可獲取對應課程的視頻源碼">
+          <"div class="resource-list">
+            <"ul>
+              <"li v-for="item in 9" :key="item">
+                <"!-- <"img src="/images/courses/全棧VIP班.jpg" alt="" @click="showList" /> -->
+                <"div class="course-cover" v-if="userType == 1" @click=""showList>
+                  <"span class="no-logged first-noti cover-noti">
+                    <"!-- <"img src="/images/icons/lockResource.png" alt="" /> -->
+                  <"/span>
+                  <"span
+                    class="no-logged last-noti cover-noti"
+                    v-if="userName == null"
+                    @click="showLogin"
+                    >點擊登入<"/span>
+                    <"span class="no-logged bottom-noti" v-if="userName == null">
+                      未登入
+                    <"/span>
+                    <"i>全棧VIP課程<"/i>
+                <"/div>
+              <"/li>
+            <"/ul>
+          <"/div>
+        <"/Pad>
+      <"/div>
+      <"el-dialog
+        v-model="dialogVisible"
+        title="Tips"
+        width="30%"
+        :before-close="handleClose"
+      >
+      <"span>This is a message<"/span>
+      <"template #footer>
+        <"span class="dialog-footer">
+          <"el-button @click="dialogVisible = false">Cancel<"/el-button>
+          <"el-button type="primary" @click="dialogVisible = false">Confirm<"/el-button>
+        <"/span>
+      <"/template>
+      <"/el-dialog>
+    <"/template>
+    
+    <"script setup>
+      import { onMounted, ref } from 'vue';
+      // import Pad from "../components/Pad.vue"
+      import { getList } from "../http/index"
+      // import { isShowLoginPad, userName } from "../globalValue/globalValue"
+      import { ElMessageBox } from "element-plus"
+    
+      const dialogVisible = ref(false)
+      const userType = ref();
+      const list = ref();
+      const userInfoStr = sessionStorage["userInfo"]
+      if(userInfoStr != null){
+        const userInfo = JSON.parse(userInfoStr)
+        userName.value = userInfo.nickName;
+        userType.value = userInfo.UserType;
+      }else{
+        userType.value = 1;
+      }
+      const showLogin = () => {
+        isShowLoginPad.value = true
+      }
+      const showList= () => {
+        if(userType.value == 2)
+        {
+          console.log("VIP用戶")
+          list.value = getList(sessionStorage["token"])
+          console.log(list.value)
+        }else{
+          console.log("普通用戶，沒有權限")
+        }
+      }
+      const handleClose = ()  => {
+        ElMessageBox.confirm("Are you sure to close this dialog?")
+        .then(()=>{
+          done();
+        })
+        .catch(()=>{
+          // catch error
+        })
+      }
+      onMounted(async()=>{
+        // todo: 通過token驗證接口
+        //list.value = await getList(sessionStorage["token"])
+      })
+    
+    <"/script>
+
+    Program.cs
+    ===========================================
+    app.UseCors(x=> x.AllowAnyHeader().AllowAnyMethod()
+    .WithOrigins("http://localhost:5173"));
+     app.MapControllers();
+     
+     app.Run();
 
 
     </pre>

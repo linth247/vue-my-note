@@ -1,11 +1,11 @@
 <script setup>
-// import { ref } from 'vue'
+import { ref } from 'vue'
 
 import toTop from "@/UI/toTop.vue";
 toTop.scrollToTop =  true;
 
   const content = `
-    <div id="content" style="display:flex; justify-content: center; background-color: #282923; color:#c1cccc; font-size: 14px;">
+    <div id="content" style="display:flex; justify-content: center; background-color: #282923; font-size: 14px;">
     <pre>
 
 
@@ -659,13 +659,20 @@ toTop.scrollToTop =  true;
   `;
 
 
+
+  const colorOptions = ref({
+  value: "rgba(193,204,204)",
+  btn: true,
+  theme: "light"
+});
 </script>
 
 <template>
   <div>我是DotnetAPI_Angular頁面</div>
   <div>
     <!-- {{ aa }} -->
-    <div v-html="content"></div>
+    <input v-model="colorOptions.value">
+    <div v-html="content" :style="{ color: colorOptions.value }"></div>
   </div>
   <toTop></toTop>
 </template>
