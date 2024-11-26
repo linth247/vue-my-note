@@ -992,8 +992,7 @@ const content = `
                   <"span
                     class="no-logged last-noti cover-noti"
                     v-if="userName == null"
-                    @click="showLogin"
-                    >點擊登入<"/span>
+                    @click="showLogin">點擊登入<"/span>
                     <"span class="no-logged bottom-noti" v-if="userName == null">
                       未登入
                     <"/span>
@@ -1008,8 +1007,7 @@ const content = `
         v-model="dialogVisible"
         title="Tips"
         width="30%"
-        :before-close="handleClose"
-      >
+        :before-close="handleClose">
       <"span>This is a message<"/span>
       <"template #footer>
         <"span class="dialog-footer">
