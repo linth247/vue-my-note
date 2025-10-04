@@ -28,6 +28,7 @@ import index3 from '@/views/pdf_vue3/3-run.vue'
 import index4 from '@/views/pdf_vue3/4-js.vue'
 import vuejs_auth from '@/views/vuejs_auth/index.vue'
 import vuejs_auth2 from '@/views/vuejs_auth2/index.vue'
+import Dropdownlist from '@/views/Dropdownlist/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -162,6 +163,10 @@ const router = createRouter({
         {
           path:'/vuejs_auth2',
           component: vuejs_auth2
+        },
+        {
+          path:'/Dropdownlist',
+          component: Dropdownlist
         },
       ]
     },
