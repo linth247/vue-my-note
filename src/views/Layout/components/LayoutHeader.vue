@@ -48,6 +48,7 @@
         <li> <RouterLink to="/vuejs_auth">vuejs_auth</RouterLink> </li>
         <li> <RouterLink to="/vuejs_auth2">vuejs_auth2</RouterLink> </li>
         <li> <RouterLink to="/Dropdownlist">Dropdownlist</RouterLink> </li>
+        <li> <RouterLink to="/Interview">面試</RouterLink> </li>
       </ul>
       <!-- <div class="search">
         <i class="iconfont icon-search"></i>

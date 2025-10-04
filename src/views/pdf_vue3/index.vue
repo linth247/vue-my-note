@@ -26,6 +26,8 @@ toTop.scrollToTop =  true;
         <span class="title"> <RouterLink to="/2-net7">.NET 7 後台</RouterLink> </span>
         <span class="title"> <RouterLink to="/3-run">如何運行當前項目</RouterLink> </span>
         <span class="title"> <RouterLink to="/4-js">JavaScript</RouterLink> </span>
+        <span class="title"> <RouterLink to="/5-harry">哈利</RouterLink> </span>
+        <span class="title"> <RouterLink to="/6-rich">我45歲學存股股利年領200萬</RouterLink> </span>
     </div>
     <br>
     <hr>
