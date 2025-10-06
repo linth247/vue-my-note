@@ -37,7 +37,168 @@ const handlePdfInit = (pdf) => {
  <!-- src="/vue-my-note/JavaScript.pdf" -->
 <template>
   <div style="width: 100%">
-          <!-- src="/vue-my-note/HP1.pdf" -->
+    <!-- 使用pane -->
+    <!-- src="/vue-my-note/HP1.pdf" -->
+     
+     
+    <details>
+      <summary>第一部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/1.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第二部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/2.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第三部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/3.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第四部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/4.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第六部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/6.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第七部</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/7.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <details>
+      <summary>第一部 英文</summary>
+      <PDF
+        :page="page"
+        :pdf-width="isMobile ? '100%' : '768'"
+        :row-gap="isMobile ? 4 : 8"
+        src="/vue-my-note/HP1.pdf"
+        @on-pdf-init="handlePdfInit"
+        @on-page-change="handlePageChange"
+      >
+      </PDF>
+    </details>
+
+    <!-- <hr style="margin-top: 20px;">第一部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/1.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+    
+    <hr style="margin-top: 20px;">第二部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/2.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+
+    <hr style="margin-top: 20px;">第三部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/3.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+
+    <hr style="margin-top: 20px;">第四部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/4.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+
+    <hr style="margin-top: 20px;">第六部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/6.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+
+    <hr style="margin-top: 20px;">第七部</hr>
+    <PDF
+      :page="page"
+      :pdf-width="isMobile ? '100%' : '768'"
+      :row-gap="isMobile ? 4 : 8"
+      src="/vue-my-note/7.pdf"
+      @on-pdf-init="handlePdfInit"
+      @on-page-change="handlePageChange"
+    >
+    </PDF>
+
+    <hr style="margin-top: 20px;">第一部 英文</hr>
     <PDF
       :page="page"
       :pdf-width="isMobile ? '100%' : '768'"
@@ -46,7 +207,9 @@ const handlePdfInit = (pdf) => {
       @on-pdf-init="handlePdfInit"
       @on-page-change="handlePageChange"
     >
-    </PDF>
+    </PDF> -->
+
+
     <div class="tool-bar">
       <p>Enter page number</p>
       <input type="number" v-model="page" />
