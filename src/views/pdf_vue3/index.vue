@@ -28,6 +28,9 @@ toTop.scrollToTop =  true;
         <span class="title"> <RouterLink to="/4-js">JavaScript</RouterLink> </span>
         <span class="title"> <RouterLink to="/5-harry">哈利</RouterLink> </span>
         <span class="title"> <RouterLink to="/6-rich">我45歲學存股股利年領200萬</RouterLink> </span>
+        <span class="title"> <RouterLink to="/7-japanese">日語</RouterLink> </span>
+        <span class="title"> <RouterLink to="/8-japanese2">日語2</RouterLink> </span>
+        <span class="title"> <RouterLink to="/9-japanese3">日語3</RouterLink> </span>
     </div>
     <br>
     <hr>

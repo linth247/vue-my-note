@@ -28,6 +28,9 @@ import index3 from '@/views/pdf_vue3/3-run.vue'
 import index4 from '@/views/pdf_vue3/4-js.vue'
 import index5 from '@/views/pdf_vue3/5-harry.vue'
 import index6 from '@/views/pdf_vue3/6-rich.vue'
+import index7 from '@/views/pdf_vue3/7-japanese.vue'
+import index8 from '@/views/pdf_vue3/8-japanese2.vue'
+import index9 from '@/views/pdf_vue3/9-japanese3.vue'
 import vuejs_auth from '@/views/vuejs_auth/index.vue'
 import vuejs_auth2 from '@/views/vuejs_auth2/index.vue'
 import Dropdownlist from '@/views/Dropdownlist/index.vue'
@@ -164,6 +167,18 @@ const router = createRouter({
             {
               path:'/6-rich',
               component: index6,
+            },
+            {
+              path:'/7-japanese',
+              component: index7,
+            },
+            {
+              path:'/8-japanese2',
+              component: index8,
+            },
+            {
+              path:'/9-japanese3',
+              component: index9,
             },
           ]
         },
