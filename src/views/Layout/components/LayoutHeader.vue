@@ -45,6 +45,7 @@
         <li> <RouterLink to="/AI">AI</RouterLink> </li>
         <li> <RouterLink to="/Vue3+.NET7">Vue3+.NET7</RouterLink> </li>
         <li> <RouterLink to="/pdf_vue3">pdf_vue3</RouterLink> </li>
+        <li> <RouterLink to="/pdf_japanese">pdf_japanese</RouterLink> </li>
         <li> <RouterLink to="/vuejs_auth">vuejs_auth</RouterLink> </li>
         <li> <RouterLink to="/vuejs_auth2">vuejs_auth2</RouterLink> </li>
         <li> <RouterLink to="/Dropdownlist">Dropdownlist</RouterLink> </li>

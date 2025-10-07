@@ -22,15 +22,12 @@ toTop.scrollToTop =  true;
         <li> <RouterLink to="/confirmDeletePopup">ConfirmDeletePopup.vue</RouterLink> </li> -->
 
       <!-- </ul> -->
-        <span class="title"> <RouterLink to="/1-vue3">Vue3前台</RouterLink> </span>
-        <span class="title"> <RouterLink to="/2-net7">.NET 7 後台</RouterLink> </span>
-        <span class="title"> <RouterLink to="/3-run">如何運行當前項目</RouterLink> </span>
-        <span class="title"> <RouterLink to="/4-js">JavaScript</RouterLink> </span>
-        <span class="title"> <RouterLink to="/5-harry">哈利</RouterLink> </span>
-        <span class="title"> <RouterLink to="/6-rich">我45歲學存股</RouterLink> </span>
-        <!-- <span class="title"> <RouterLink to="/7-japanese">日語</RouterLink> </span>
-        <span class="title"> <RouterLink to="/8-japanese2">日語2</RouterLink> </span>
-        <span class="title"> <RouterLink to="/9-japanese3">日語3</RouterLink> </span> -->
+
+        <span class="title"> <RouterLink to="/1-japanese1">日語1-10</RouterLink> </span>
+        <span class="title"> <RouterLink to="/2-japanese2">日語10-20</RouterLink> </span>
+        <span class="title"> <RouterLink to="/3-japanese3">日語20-30</RouterLink> </span>
+        <span class="title"> <RouterLink to="/4-japanese4">日語30-40</RouterLink> </span>
+        <span class="title"> <RouterLink to="/5-japanese5">日語40-50</RouterLink> </span>
     </div>
     <br>
     <hr>

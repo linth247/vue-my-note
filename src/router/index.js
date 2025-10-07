@@ -28,9 +28,13 @@ import index3 from '@/views/pdf_vue3/3-run.vue'
 import index4 from '@/views/pdf_vue3/4-js.vue'
 import index5 from '@/views/pdf_vue3/5-harry.vue'
 import index6 from '@/views/pdf_vue3/6-rich.vue'
-import index7 from '@/views/pdf_vue3/7-japanese.vue'
-import index8 from '@/views/pdf_vue3/8-japanese2.vue'
-import index9 from '@/views/pdf_vue3/9-japanese3.vue'
+import pdf_japanese from '@/views/pdf_japanese/index.vue'
+import j1 from '@/views/pdf_japanese/1-japanese1.vue'
+import j2 from '@/views/pdf_japanese/2-japanese2.vue'
+import j3 from '@/views/pdf_japanese/3-japanese3.vue'
+import j4 from '@/views/pdf_japanese/4-japanese4.vue'
+import j5 from '@/views/pdf_japanese/5-japanese5.vue'
+
 import vuejs_auth from '@/views/vuejs_auth/index.vue'
 import vuejs_auth2 from '@/views/vuejs_auth2/index.vue'
 import Dropdownlist from '@/views/Dropdownlist/index.vue'
@@ -168,17 +172,35 @@ const router = createRouter({
               path:'/6-rich',
               component: index6,
             },
+          ]
+        },
+    {
+          path:'/pdf_japanese',
+          component: pdf_japanese,
+          children:[
             {
-              path:'/7-japanese',
-              component: index7,
+              path:'',
+              component: j1,
             },
             {
-              path:'/8-japanese2',
-              component: index8,
+              path:'/1-japanese1',
+              component: j1,
+            },
+      {
+              path:'/2-japanese2',
+              component: j2,
             },
             {
-              path:'/9-japanese3',
-              component: index9,
+              path:'/3-japanese3',
+              component: j3,
+            },
+            {
+              path:'/4-japanese4',
+              component: j4,
+            },
+            {
+              path:'/5-japanese5',
+              component: j5,
             },
           ]
         },

@@ -41,14 +41,14 @@ const handlePdfInit = (pdf) => {
     <!-- src="/vue-my-note/HP1.pdf" -->
 
 
-    <template v-for="n in 20" :key="n">
+    <template v-for="n in 10" :key="n">
       <details>
-        <summary>第{{ n+20 }}課</summary>
+        <summary>第{{ n }}課</summary>
         <PDF
           :page="page"
           :pdf-width="isMobile ? '100%' : '768'"
           :row-gap="isMobile ? 4 : 8"
-          :src="`/vue-my-note/japaneseBook/${n+20}.pdf`"
+          :src="`/vue-my-note/japaneseBook/${n}.pdf`"
           @on-pdf-init="handlePdfInit"
           @on-page-change="handlePageChange"
         >
